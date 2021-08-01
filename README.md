@@ -11,4 +11,5 @@ More Info to be release soon but development is underway and we are very keen to
 
 4/7/2021 - Fork and Posted to Discord base idea
 
+1/8/2021 - Public launch of V0.1
 
