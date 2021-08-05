@@ -14,6 +14,9 @@ const Tran = require("./Transaction.js");
 
 function httpGet(theUrl)
 {
+  axios.defaults.baseURL = theUrl;
+  axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
   let res = axios.get(theUrl);
   return res.data;
 }

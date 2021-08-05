@@ -226,7 +226,7 @@ export default {
       return utf8;
     },
     async httpGet(theUrl) {
-      let res = await axios.get(theUrl);
+      let res = await axios.get("https://thingproxy.freeboard.io/fetch/" + theUrl);
       console.log(res.data);
       return res.data;
     },
