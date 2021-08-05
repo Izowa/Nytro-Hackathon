@@ -20,10 +20,10 @@ function httpGet(theUrl)
 
 function listen() {
 
-  var testPK = "key_8dRfF24nn3JB0uzjw22RVER-5-zDCIANsAt~d~tFIWdnXnHkj5eD";
-  var teskPublic = "id__87Koyj.XVN1PJeQAFAyzIVdffBHFmQBNgTT7XDas4hCs.hzU27z_";
+  var testPK = "";
+  var teskPublic = "";
 
-  var testRecv = "id__87u5E4EXcb0GA4ec75WkYi~0xkWKvMmzmxjGmZzDM.7DM1MySZaC";
+  var testRecv = "";
 
   var userData =  "TT:NYA:1";
   
