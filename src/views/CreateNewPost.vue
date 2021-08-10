@@ -127,7 +127,7 @@ export default {
   computed: {
     tempImg() {
       return (
-        "http://180.150.45.233/webStorage/nya/postImgs/tempImgs/" +
+        "https://nyaz.io/nya/postImgs/tempImgs/" +
         this.tempUploadedImg
       );
     },

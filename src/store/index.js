@@ -34,7 +34,7 @@ export default new Vuex.Store({
       for (let element in formObj) {
         formData.append(element, formObj[element]);
       }
-      let response = await axios.post('http://180.150.45.233/php-files/nya/TXSubmit.inc.php', formData, {
+      let response = await axios.post('https://nyaz.io/nya/TXSubmit.inc.php', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -47,7 +47,7 @@ export default new Vuex.Store({
     async loginUser({
       commit
     }, loginInfo) {
-      let res = await axios.post('http://180.150.45.233/php-files/nya/loginUser.inc.php', loginInfo).catch(e => {
+      let res = await axios.post('https://nyaz.io/nya/loginUser.inc.php', loginInfo).catch(e => {
         console.log(e);
       });
       console.log(res);
@@ -76,7 +76,7 @@ export default new Vuex.Store({
       for (let element in formObj) {
         formData.append(element, formObj[element]);
       }
-      let res = await axios.post('http://180.150.45.233/php-files/nya/registerUser.inc.php', formData, {
+      let res = await axios.post('https://nyaz.io/nya/registerUser.inc.php', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -100,18 +100,18 @@ export default new Vuex.Store({
     },
     // This is for sending the email to the user to change the password
     async pwdRequest(email) {
-      let response = await axios.post('http://180.150.45.233/php-files/nya/pwdRequest.inc.php', email);
+      let response = await axios.post('https://nyaz.io/nya/pwdRequest.inc.php', email);
       return response.data['error'];
     },
     // This updates the server to change the password of the user
     async changePassword(info) {
-      let response = await axios.post('http://180.150.45.233/php-files/nya/changePassword.inc.php', info);
+      let response = await axios.post('https://nyaz.io/nya/changePassword.inc.php', info);
       console.log(response);
       return response.data['error'];
     },
     async changerUser({ commit }, data) {
       let response = await axios.post(
-        "http://180.150.45.233/php-files/nya/profileEdit.inc.php",
+        "https://nyaz.io/nya/profileEdit.inc.php",
         formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -129,7 +129,7 @@ export default new Vuex.Store({
       }
     },
     async createPost({ commit }, formObj) {
-      let url = "http://180.150.45.233/php-files/nya/createNewPost.inc.php";
+      let url = "https://nyaz.io/nya/createNewPost.inc.php";
       let formData = new FormData();
       //console.table(formObj)
       for (let element in formObj['data']) {
@@ -150,7 +150,7 @@ export default new Vuex.Store({
       return response.data;
     },
     async dataCall({commit}, formObj) {
-      let url = "http://180.150.45.233/php-files/nya/" + formObj['url'] + ".inc.php";
+      let url = "https://nyaz.io/nya/" + formObj['url'] + ".inc.php";
       let formData = new FormData();
       //console.table(formObj)
       for (let element in formObj['data']) {

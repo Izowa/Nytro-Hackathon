@@ -69,7 +69,7 @@ export default {
       let formData = new FormData();
       formData.append("auth", this.$route.params.id);
       let response = await axios.post(
-        "http://180.150.45.233/php-files/nya/pwdAuth.inc.php",
+        "https://nyaz.io/nya/pwdAuth.inc.php",
         formData
       );
       if (response.data["error"] != "none") {

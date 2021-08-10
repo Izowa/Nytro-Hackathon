@@ -91,7 +91,7 @@ export default {
         formData.append("start", this.start);
         formData.append("limit", this.limit);
         let response = await axios.post(
-          "http://180.150.45.233/php-files/nya/fetchUserPosts.inc.php",
+          "https://nyaz.io/nya/fetchUserPosts.inc.php",
           formData
         );
         console.log(response);

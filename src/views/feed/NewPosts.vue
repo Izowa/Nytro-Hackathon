@@ -12,12 +12,16 @@
   </v-container>
 </template>
 
+
 <script>
 import $ from "jquery";
 import axios from "axios";
 import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
+  metaInfo: {
+    title: 'new posts'
+  },
   components: { PostCard, AccountWidget },
   data() {
     return {
@@ -33,7 +37,7 @@ export default {
         let formData = new FormData();
         formData.append('start', this.start);
         formData.append('limit', this.limit);
-        let response = await axios.post("http://180.150.45.233/php-files/nya/fetchNew.inc.php", formData);
+        let response = await axios.post("https://nyaz.io/nya/fetchNew.inc.php", formData);
         console.log(response);
         //console.log(response.data["reachedMax"]);
         if (response.data["reachedMax"] == true) {

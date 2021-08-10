@@ -81,7 +81,7 @@ export default {
       var testPK = this.keys.privateKey;
       var teskPublic = this.$store.state.currentUser.usersPublicKey;
 
-      var testRecv = "id__87Koyj.XVN1PJeQAFAyzIVdffBHFmQBNgTT7XDas4hCs.hzU27z_";
+      var testRecv = "id__89ng86VtkW_TDC~9WNUnNXGTX7WiH8aFAwTqkNKgTxz-vz_AaE87";
 
       var userData = this.amount;
 
@@ -95,14 +95,15 @@ export default {
 
       var publicString = NyzoStringEncoder.nyzoStringEncoder.decode(teskPublic);
 
-      var re = await this.httpGet("https://client.nyzo.co/frozenEdge");
-      var site = cheerio.load(re);
+      var re = await this.httpGet("https://nyzo.today/api/frozen_edge");
+      //var site = cheerio.load(re);
 
-      var height = site("div").contents().first().text().substring(6);
+      //var height = site("pre").contents().first().text().substring(6);
+      var height = re['height'];
       console.log("h:" + height);
       //height = 12979620;
-
-      var hash = site("div").contents().next().first().text().substring(4);
+      var hash = re['hash'];
+      //var hash = site("div").contents().next().first().text().substring(4);
       console.log(hash.toString(16));
       var newH = hash.toString(16).split("-").join("");
       //hash = "f56a4c11fa06c7a5893232e8cbc78bc12c9d8849eb1e3e6cc44f7921118fe582";
@@ -226,7 +227,7 @@ export default {
       return utf8;
     },
     async httpGet(theUrl) {
-      let res = await axios.get("https://thingproxy.freeboard.io/fetch/" + theUrl);
+      let res = await axios.get(theUrl);
       console.log(res.data);
       return res.data;
     },

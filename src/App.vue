@@ -20,8 +20,11 @@
 
 <script>
 import NavDesktop from '@/components/NavDesktop.vue'
-export default {
+export default  {
   name: 'App',
+  metaInfo: {
+        title: 'test nya'
+  },
   components: {
     NavDesktop
   },

@@ -76,14 +76,16 @@ export default {
 
       var publicString = NyzoStringEncoder.nyzoStringEncoder.decode(teskPublic);
 
-      var re = await this.httpGet("https://client.nyzo.co/frozenEdge");
-      var site = cheerio.load(re);
-
-      var height = site("div").contents().first().text().substring(6);
+      var re = await this.httpGet("https://nyzo.today/api/frozen_edge");
+      //var site = cheerio.load(re);
+      console.log(re);
+      //var height = site("pre").contents().first().text().substring(6);
+      var height = re['height'];
       console.log("h:" + height);
       //height = 12979620;
 
-      var hash = site("div").contents().next().first().text().substring(4);
+      //var hash = site("div").contents().next().first().text().substring(4);
+      var hash = re['hash']
       console.log(hash.toString(16));
       var newH = hash.toString(16).split("-").join("");
       //hash = "f56a4c11fa06c7a5893232e8cbc78bc12c9d8849eb1e3e6cc44f7921118fe582";
@@ -202,7 +204,7 @@ export default {
       return utf8;
     },
     async httpGet(theUrl) {
-      let res = await axios.get("https://thingproxy.freeboard.io/fetch/" + theUrl);
+      let res = await axios.get(theUrl);
       console.log(res.data);
       return res.data;
     },

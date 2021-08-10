@@ -56,7 +56,7 @@ export default {
       let formData = new FormData();
       formData.append("usersID", this.$store.state.currentUser.usersID);
       let response = await axios.post(
-        "http://180.150.45.233/php-files/nya/fetchUserPosts.inc.php",
+        "https://nyaz.io/nya/fetchUserPosts.inc.php",
         formData
       ); // No URL
       if (response.data["error"] != "none") {

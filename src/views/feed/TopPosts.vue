@@ -17,6 +17,11 @@ import $ from "jquery";
 import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
+  metaInfo: {
+    title: 'top posts',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   components: { PostCard, AccountWidget },
   data() {
     return {

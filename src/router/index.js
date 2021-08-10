@@ -2,8 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NewPosts from '@/views/feed/NewPosts.vue'
 import NotFound from '@/views/NotFound.vue'
+import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
+Vue.use(Meta)
 
 const routes = [
   // ? The order of index.js should match that of the /views folder
