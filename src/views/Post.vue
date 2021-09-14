@@ -68,6 +68,11 @@ export default {
     Comment,
     Upvote
   },
+  metaInfo: {
+    title: 'Post',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       postD: {},

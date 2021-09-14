@@ -9,13 +9,18 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="red" @click="pwdRequestCall">Request Change</v-btn>
+      <v-btn color="primary" @click="pwdRequestCall">Request Change</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
+  metaInfo: {
+    title: 'Change Password',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       email: "",

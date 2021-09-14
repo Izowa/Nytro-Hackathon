@@ -1,5 +1,5 @@
 <template>
-  <v-card color="red" width="800px" class="mx-auto pa-4">
+  <v-card color="primary" width="900px" class="mx-auto pa-4">
     <v-card-title>
       <h1>Create a post</h1>
     </v-card-title>
@@ -50,8 +50,12 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
+  metaInfo: {
+    title: 'Create New Post',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       postInfo: {

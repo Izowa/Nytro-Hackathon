@@ -1,5 +1,5 @@
 <template>
-  <v-card color="darkgrey" class="my-2 pa-2">
+  <v-card color="secondary" class="my-2 pa-2">
     <v-card-subtitle> @{{comment.usersUid}} </v-card-subtitle>
     <v-card-text>
       {{comment.commentValue}}

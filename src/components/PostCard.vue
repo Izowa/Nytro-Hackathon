@@ -1,6 +1,6 @@
 <template>
-  <v-card class="mb-5 pa-2 pointerG topPostBox" width="500px" min-height="200px" color="red" >
-    <v-card-title @click="$router.push({name: 'Post', params: {id: id}})">
+  <v-card class="mb-5 pa-2 pointerG topPostBox" width="100%" min-height="200px" color="primary" >
+    <v-card-title style="word-break: break-word" @click="$router.push({name: 'Post', params: {id: id}})">
       <h2>{{title}}</h2>
       <v-spacer/>
       <span class="font-weight-light">@{{usersUid}}</span>

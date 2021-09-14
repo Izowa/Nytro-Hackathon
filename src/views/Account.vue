@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs color="red">
+    <v-tabs color="primary">
       <v-tab>Account Info</v-tab>
       <v-tab>Profile Info</v-tab>
       <v-tab>Nya Management</v-tab>
@@ -23,6 +23,11 @@ import ProfileDetails from "@/components/settings/ProfileDetails.vue";
 import ManageNya from "@/components/settings/ManageNya.vue";
 export default {
   components: { AccountDetails, ProfileDetails, ManageNya },
+  metaInfo: {
+    title: 'Account',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
 };
 </script>
 

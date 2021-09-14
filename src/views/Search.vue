@@ -15,11 +15,15 @@
 
 <script>
 import $ from "jquery";
-import axios from "axios";
 import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
   components: { PostCard, AccountWidget },
+  metaInfo: {
+    title: 'Search Result',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       fetchedPosts: [],

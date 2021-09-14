@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="red" width="800px" class="mx-auto pa-4">
+    <v-card color="primary" width="800px" class="mx-auto pa-4">
       <v-card-text>
         <v-form>
           <v-row>
@@ -75,6 +75,11 @@ import axios from "axios";
 import PostCard from "@/components/PostCard.vue";
 export default {
   components: { PostCard },
+  metaInfo: {
+    title: 'Profile',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       id: $route.params.id,

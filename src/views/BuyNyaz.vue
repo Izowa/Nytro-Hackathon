@@ -2,7 +2,7 @@
   <v-row>
     <v-col></v-col>
     <v-col>
-      <v-card v-show="!isDone" width="600px" color="#BF3D3D" class="mx-auto pa-3">
+      <v-card v-show="!isDone" width="600px" color="primary" class="mx-auto pa-3">
         <v-card-title>
           <h2 class="white--text">Buy Nyzo</h2>
         </v-card-title>
@@ -29,7 +29,7 @@
           <v-btn block @click="listen">Buy Nya!</v-btn>
         </v-card-actions>
       </v-card>
-      <v-card v-show="isDone" width="600px" color="red" class="mx-auto pa-3">
+      <v-card v-show="isDone" width="600px" color="primary" class="mx-auto pa-3">
         <v-card-title>
           <h2 class="white--text">Thank you!</h2>
         </v-card-title>
@@ -61,6 +61,11 @@ const Tran = require("@/js/Transaction.js");
 import axios from "axios";
 export default {
   props: ["recPublicKey"],
+  metaInfo: {
+    title: 'Buy Nyaz',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       sheet: false,

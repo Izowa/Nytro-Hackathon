@@ -21,7 +21,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="red" @click="loginUserCall">Login</v-btn>
+      <v-btn color="primary" @click="loginUserCall">Login</v-btn>
       <v-btn to="/signup">Sign Up</v-btn>
       <v-spacer />
       <v-btn text>Forgot Password</v-btn>
@@ -31,6 +31,11 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: 'Login',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       loginInfo: {

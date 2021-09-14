@@ -18,7 +18,7 @@ import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
   metaInfo: {
-    title: 'top posts',
+    title: 'Top Posts',
     'http-equiv': "Content-Security-Policy",
     content: "upgrade-insecure-requests"
   },

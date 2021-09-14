@@ -54,7 +54,7 @@
       </p>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="red" @click="registerUserCall">Register</v-btn>
+      <v-btn color="primary" @click="registerUserCall">Register</v-btn>
       <v-btn to="/login">Login</v-btn>
     </v-card-actions>
   </v-card>
@@ -62,6 +62,11 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: 'Sign Up',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       registerInfo: {

@@ -7,7 +7,11 @@
 
 <script>
 export default {
-
+  metaInfo: {
+      title: 'Not Found',
+      'http-equiv': "Content-Security-Policy",
+      content: "upgrade-insecure-requests"
+    },
 }
 </script>
 

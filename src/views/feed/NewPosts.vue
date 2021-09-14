@@ -20,7 +20,9 @@ import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
   metaInfo: {
-    title: 'new posts'
+    title: 'New Posts',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
   },
   components: { PostCard, AccountWidget },
   data() {

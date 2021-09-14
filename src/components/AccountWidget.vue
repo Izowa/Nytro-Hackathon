@@ -1,5 +1,5 @@
 <template>
-  <v-card color="red" class="pa-6 topAcountBox" :width="$vuetify.breakpoint.mobile ? '500px' : 'auto'">
+  <v-card color="primary" class="pa-6 topAcountBox" :width="$vuetify.breakpoint.mobile ? '500px' : 'auto'">
       <v-card-text v-show="$store.state.loggedIn">
           <h3 class="mb-2">Nyaz Balance</h3>
           <div class="d-inline-flex">

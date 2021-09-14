@@ -1,12 +1,8 @@
 <template>
   <v-app class="coreBG">
-  <NavDesktop/>
-  <!-- Sizes your content based upon application components -->
+  <NavBar/>
   <v-main>
-
-    <!-- Provides the application the proper gutter -->
     <v-container fluid>
-      <!-- If using vue-router -->
       <router-view></router-view>
     </v-container>
     
@@ -19,14 +15,14 @@
 </template>
 
 <script>
-import NavDesktop from '@/components/NavDesktop.vue'
+import NavBar from '@/components/NavBar.vue'
 export default  {
   name: 'App',
   metaInfo: {
-        title: 'test nya'
+        title: 'Nyaz'
   },
   components: {
-    NavDesktop
+    NavBar
   },
   created() {
     this.$vuetify.theme.dark;

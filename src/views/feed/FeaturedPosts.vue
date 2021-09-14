@@ -18,6 +18,11 @@ import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
   components: { PostCard, AccountWidget },
+  metaInfo: {
+    title: 'Featured Posts',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       fetchedPosts: [],

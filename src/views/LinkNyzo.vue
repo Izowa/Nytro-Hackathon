@@ -18,6 +18,11 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: 'Link Nyzo',
+    'http-equiv': "Content-Security-Policy",
+    content: "upgrade-insecure-requests"
+  },
   data() {
     return {
       keys: {
