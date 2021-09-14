@@ -3,7 +3,7 @@
     <v-btn class="ml-2" color="blue" dark @click="sheet = !sheet"> Give Nya! </v-btn>
     <v-bottom-sheet v-model="sheet">
       <v-sheet class="text-center" height="400px">
-        <v-btn class="mt-6" text color="red" @click="sheet = !sheet">
+        <v-btn class="mt-6" text color="#BF3D3D" @click="sheet = !sheet">
           close
         </v-btn>
         <div class="py-3 mx-12">

@@ -1,21 +1,23 @@
 <template>
-  <v-card class="mb-5 pa-2 pointerG" width="500px" min-height="200px" color="red" >
+  <v-card class="mb-5 pa-2 pointerG topPostBox" width="500px" min-height="200px" color="red" >
     <v-card-title @click="$router.push({name: 'Post', params: {id: id}})">
       <h2>{{title}}</h2>
       <v-spacer/>
       <span class="font-weight-light">@{{usersUid}}</span>
     </v-card-title>
+    <hr/>
     <v-card-text @click="$router.push({name: 'Post', params: {id: id}})">
       <div v-for="image in imagePath" :key="image.postsImgID">
         <p></p>
-        <img width="100%" height="auto" :src="'http://180.150.45.233/webStorage/nya/postImgs/' + image.postsImgPath">
+        <img class="PostBorder" width="100%" height="auto" :src="'https://nyaz.io/webStorage/nya/postImgs/' + image.postsImgPath">
       </div>
     </v-card-text>
-    <v-card-text v-show="desc != ''" @click="$router.push({name: 'Post', params: {id: id}})">
+    <v-card-text class="postText" v-show="desc != ''" @click="$router.push({name: 'Post', params: {id: id}})">
       <p>
         {{desc}}
       </p>
     </v-card-text>
+    <hr/>
     <v-card-actions>
       <v-row>
         <v-col>
@@ -26,8 +28,8 @@
         </v-col>
         <v-col>
           <div class="d-inline-flex">
-             <img src="@/assets/paw.svg" width="40" height="40" />
-             <p class="pa-2 white rounded-pill black--text">{{likes}}</p>
+             <img class="smallPaw" src="@/assets/paw.svg" width="40" height="40" />
+             <p class="smallCounter white rounded-pill black--text">{{likes}}</p>
           </div>
         </v-col>
         <v-col>
@@ -94,4 +96,35 @@ export default {
 </script>
 
 <style>
+
+hr{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-color: rgba(0, 0, 0, 0.144);
+}
+
+.smallPaw{
+  margin-right: 1rem;
+}
+
+.smallCounter{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.postText{
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.PostBorder{
+  border-radius: 1rem !important;
+}
+
+.topPostBox{
+  border-radius: 1rem !important;
+}
+
 </style>

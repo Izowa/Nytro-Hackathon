@@ -19,7 +19,7 @@
                 width="100%"
                 height="auto"
                 :src="
-                  'http://180.150.45.233/webStorage/nya/postImgs/' +
+                  'https://nyaz.io/webStorage/nya/postImgs/' +
                   image.postsImgPath
                 "
               />

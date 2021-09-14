@@ -34,7 +34,7 @@ $isFiles = 1;
 
 $uploadOk = array();
 
-$location = "../../WebStorage/nya/postImgs/";
+$location = "/WebStorage/nya/postImgs/";
 $file_temp = array();
 $file_size = array();
 $target_file = array();

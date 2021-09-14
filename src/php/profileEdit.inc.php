@@ -27,7 +27,7 @@ if (isset($_POST["usersDesc"])) {
 // ---------------------- Profile Picture ----------------------
 if (isset($_FILES)) {
 
-    $location = "../../WebStorage/nya/pfps/";
+    $location = "/WebStorage/nya/pfps/";
     $file_name = $_FILES[0]["name"];
     $file_temp = $_FILES[0]["tmp_name"];
     $file_size = $_FILES[0]["size"];
