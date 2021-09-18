@@ -3,16 +3,22 @@
     <v-row>
       <v-col></v-col>
       <v-col>
-        <v-card width="600px" class="pa-3">
-          <v-card-title>
+        <v-card width="900px" class="pa-3">
+          <v-card-title style="word-break: break-word">
             <h2>{{ postD.postsTitle }}</h2>
-            <v-spacer />
-            <span class="font-weight-light">@{{ postD.usersUid }}</span>
+            <v-spacer v-show="!$vuetify.breakpoint.mobile"/>
+            <span
+              class="font-weight-light pointerG"
+              @click="$router.push({ name: 'Profile', params: postD.usersUid })"
+              >@{{ postD.usersUid }}</span
+            >
           </v-card-title>
-          <v-chip class="mr-1" v-for="tag in tags" :key="tag.tagsID">
-            {{ tag.tagsValue }}
-          </v-chip>
-          <v-card-text>
+          <div class="ml-3" v-if="tags.length > 0">
+            <v-chip class="mr-1" v-for="tag in tags" :key="tag.tagID">
+              {{ tag.tagsValue }}
+            </v-chip>
+          </div>
+          <v-card-text v-if="imagePath.length > 0">
             <div v-for="image in imagePath" :key="image.postsImgID">
               <p></p>
               <img
@@ -31,10 +37,15 @@
             </p>
             <div class="d-inline-flex">
               <v-icon>mdi-comment</v-icon>
-              <p class="mt-3 mr-2">Comments</p>
-              <Upvote :recPublicKey="postD.usersPublicKey" :postsID="postD.postsID" :usersID="postD.usersID"/>
+              <p class="mt-3 mr-2 ml-1">Comments</p>
+              <Upvote
+                class="mt-1"
+                :recPublicKey="postD.usersPublicKey"
+                :postsID="postD.postsID"
+                :usersID="postD.usersID"
+              />
             </div>
-            <v-card v-show="$store.state.loggedIn">
+            <v-card elevation="5" v-show="$store.state.loggedIn">
               <v-card-title>Write a comment</v-card-title>
               <v-card-text>
                 <v-text-field
@@ -42,7 +53,7 @@
                   prepend-icon="mdi-pencil"
                   placeholder="Write something awesome"
                 />
-                <v-btn @click="createCommentCall">Post</v-btn>
+                <v-btn width="150px" color="accent" @click="createCommentCall">Post</v-btn>
               </v-card-text>
             </v-card>
             <div v-for="comment in comments" :key="comment.id">
@@ -61,17 +72,17 @@
 <script>
 import AccountWidget from "@/components/AccountWidget.vue";
 import Comment from "@/components/Comment.vue";
-import Upvote from "@/components/Upvote.vue"
+import Upvote from "@/components/Upvote.vue";
 export default {
   components: {
     AccountWidget,
     Comment,
-    Upvote
+    Upvote,
   },
   metaInfo: {
-    title: 'Post',
-    'http-equiv': "Content-Security-Policy",
-    content: "upgrade-insecure-requests"
+    title: "Post",
+    "http-equiv": "Content-Security-Policy",
+    content: "upgrade-insecure-requests",
   },
   data() {
     return {
@@ -96,7 +107,7 @@ export default {
           data: {
             postsID: this.$route.params.id,
             usersID: this.$store.state.currentUser.usersID,
-            comment: this.newComment
+            comment: this.newComment,
           },
         });
         if (response["error"] != "none") {
@@ -107,7 +118,7 @@ export default {
           this.getComments();
         }
       } else {
-        alert('Please sign in');
+        alert("Please sign in");
       }
     },
     async getPost() {
