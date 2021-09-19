@@ -9,6 +9,7 @@ export default new Vuex.Store({
     currentUser: {},
     loggedIn: false,
     mobileView: false,
+    baseStorageURL: "https://www.nyaz.io/webStorage/nya/"
   },
   // Methods to actually change the state
   mutations: {
@@ -68,6 +69,38 @@ export default new Vuex.Store({
       if (Object.entries(localUser).length != 0) {
         commit('SET_CURRENT_USER', JSON.parse(localStorage.getItem('currentUser')))
       }
+    },
+    async pwdCheck({
+      commit,
+      state
+    }, postsID) {
+      let formData = new FormData();
+      formData.append("usersID", state.currentUser.usersID);
+      formData.append("pwd", state.currentUser.usersPwd);
+      let response = await axios.post('https://nyaz.io/nya/pwdCheck.inc.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).catch(e => {
+        console.log(e);
+      });
+      return response.data;
+    },
+    async ownerCheck({
+      commit,
+      state
+    }, postsID) {
+      let formData = new FormData();
+      formData.append("usersID", state.currentUser.usersID);
+      formData.append("postsID", postsID);
+      let response = await axios.post('https://nyaz.io/nya/ownerCheck.inc.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).catch(e => {
+        console.log(e);
+      });
+      return response.data;
     },
     async registerUser({
       commit
@@ -145,6 +178,20 @@ export default new Vuex.Store({
             'Content-Type': 'multipart/form-data'
           }
         }).catch(e => {
+        console.log(e);
+      });
+      return response.data;
+    },
+    async deletePost({
+      commit,
+      state
+    }, formObj) {
+      let formData = new FormData();
+      console.log(formObj);
+      formData.append("postsID", formObj["postsID"])
+      formData.append("usersID", state.currentUser.usersID);
+      formData.append("usersPwd", state.currentUser.usersPwd);
+      let response = await axios.post('https://nyaz.io/nya/deletePost.inc.php', formData).catch(e => {
         console.log(e);
       });
       return response.data;

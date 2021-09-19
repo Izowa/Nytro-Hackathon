@@ -64,6 +64,11 @@ const routes = [
     component: () => import('../views/Post.vue')
   },
   {
+    path: '/my-posts',
+    name: 'MyPosts',
+    component: () => import('../views/MyPosts.vue')
+  },
+  {
     path: '/profile/:uID',
     name: 'Profile',
     component: () => import('../views/Profile.vue')
