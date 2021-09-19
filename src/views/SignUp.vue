@@ -40,6 +40,11 @@
         <p>
           Please remember your password, the ability to change password will be coming soon.
         </p>
+        <br>
+        <v-checkbox v-model="registerInfo.tos" label="By ticking you agree to the Lost Night Studios Privacy Policy" />
+        <p>You can find the Privacy Policy <a href="https://www.nyaz.io/terms-of-service.pdf">Here</a></p>
+        <v-checkbox v-model="registerInfo.privacy" label="By ticking you agree to the Nyaz Terms of Service" />
+        <p>You can find the Terms of Service <a href="https://www.nyaz.io/privacy-policy.pdf">Here</a></p>
       </v-form>
     </v-card-text>
     <v-card-title><h2>Link Nyzo Wallet</h2></v-card-title>
@@ -49,7 +54,7 @@
         label="Public Wallet Key"
       />
       <p>
-        Policy: We DO NOT store your privateKey, this is stored locally on your
+        Policy: We <strong>DO NOT</strong> store your private key, this is stored locally on your
         machine
       </p>
     </v-card-text>
@@ -75,6 +80,8 @@ export default {
         pwd: "",
         pwdRepeat: "",
         publicKey: "",
+        tos: false,
+        privacy: false,
       },
       error: true,
       showPassword: false,
@@ -90,6 +97,10 @@ export default {
       console.log("Handle Submit");
       if (this.registerInfo.pwd != this.registerInfo.pwdRepeat) {
         alert("Passwords do not match");
+      } else if (this.registerInfo.tos != true) {
+        alert("Please agree to the Terms of Service")
+      } else if (this.registerInfo.privacy != true) {
+        alert("Please agree to the Privacy Policy")
       } else {
         let response = await this.$store.dispatch(
           "registerUser",

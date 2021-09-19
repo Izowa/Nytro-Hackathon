@@ -19,6 +19,8 @@ $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 $publicKey = $_POST['publicKey'];
 $defaultDesc = "This is a basic description";
 $defaultPfp = "default.jpg";
+$tos = $_POST['tos'];
+$privacy = $_POST['privacy'];
 
 // ? ----- CHECK USER DATA -----
 
@@ -28,13 +30,23 @@ if (empty($username) || empty($email) || empty($pwd)) {
     exit(json_encode($result));
 }
 
-// ! Invalid 2 - Field are empty
+// ! Invalid 2 - Repeats do not match
 if ($pwd != $pwdRepeat) {
     $result["error"] = 'notSamePwd';
     exit(json_encode($result));
 }
 
-$sql = "SELECT * FROM users WHERE usersUid= ? OR usersEmail= ?;";
+// ! Invalid 1 - Agreements not signed
+if (empty($tos) || $tos != "true") {
+    $result["error"] = 'acceptTOS';
+    exit(json_encode($result));
+}
+if (empty($privacy) || $privacy != "true") {
+    $result["error"] = 'acceptPrivacy';
+    exit(json_encode($result));
+}
+
+$sql = "SELECT * FROM users WHERE usersUid= ? OR usersEmail= ? OR usersPublicKey = ?;";
 
 $stmt = mysqli_stmt_init($conn);
 // ! Invalid 3 - An SQL error has occurred
@@ -42,7 +54,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     $result["error"] = 'stmtFailed1';
     exit(json_encode($result));
 }
-mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+mysqli_stmt_bind_param($stmt, "sss", $username, $email, $publicKey);
 mysqli_stmt_execute($stmt);
 $usersID = mysqli_insert_id($conn);
 $resultData = mysqli_stmt_get_result($stmt);
@@ -55,6 +67,10 @@ if (mysqli_num_rows($resultData) != 0) {
     }
     if ($regData['usersEmail'] == $email) {
         $result["error"] = 'emailExist';
+        exit(json_encode($result));
+    }
+    if ($regData['usersPublicKey'] == $publicKey) {
+        $result["error"] = 'publicKeyExist';
         exit(json_encode($result));
     }
 }
@@ -95,8 +111,21 @@ if (mysqli_num_rows($resultData) == 0) {
 $resData = mysqli_fetch_assoc($resultData);
 mysqli_stmt_close($stmt2);
 
+// ? ----- RECORD USER SIGNING -----
+// Checked above if the user has correct values
+
+$sql = "INSERT INTO policySigns (usersID, TOS, Privacy) VALUES (?, ?, ?);";
+$stmt = mysqli_stmt_init($conn);
+// ! Invalid 5 - An SQL Error has occurred
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+    $result["error"] = 'stmtFailed2';
+    exit(json_encode($result));
+}
+mysqli_stmt_bind_param($stmt, "iss", $usersID, $tos, $privacy);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+
 // ? ----- RESPONSE -----
 
 $result += $resData;
-unset($result['usersPwd']);
 exit(json_encode($result));
