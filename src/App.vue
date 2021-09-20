@@ -5,7 +5,6 @@
     <v-container fluid>
       <router-view></router-view>
     </v-container>
-    
   </v-main>
   <v-footer app color="grey">
     <img src="@/assets/cat.png" :width="$vuetify.breakpoint.mobile ? '150px' : '300px'" height="auto" :class="{'cat': $vuetify.breakpoint. mdAndUp, 'catMobile': $vuetify.breakpoint. smAndDown}">
@@ -19,7 +18,7 @@ import NavBar from '@/components/NavBar.vue'
 export default  {
   name: 'App',
   metaInfo: {
-        title: 'Nyaz'
+    title: 'Nyaz'
   },
   components: {
     NavBar

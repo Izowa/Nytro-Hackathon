@@ -23,6 +23,6 @@ while ($row = mysqli_fetch_assoc($resultData)) {
     $postData[] = $row;
     //echo var_dump($row);
 }
-$result += $postData;
+$result += ['images' => $postData];
 //echo var_dump($result);
 exit(json_encode($result));

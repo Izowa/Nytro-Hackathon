@@ -61,12 +61,11 @@
     <div
       class="d-inline-flex mt-3"
       v-for="image in tempUploadedImg"
-      :key="image.id"
+      :key="image"
     >
-      <v-card class="mr-2 mb-2" @click="removeImage(image.id)">
-        <v-icon class="pa-2" style="float: right">mdi-close</v-icon>
+      <v-card class="mr-2 mb-2">
         <v-card-text>
-          <img :src="image.image" width="150px" height="auto" />
+          <img :src="image" width="150px" height="auto" />
         </v-card-text>
       </v-card>
     </div>
@@ -104,49 +103,34 @@ export default {
   },
   methods: {
     async newPostCall() {
-      let imgFiles = [];
-      for (let image of this.images) {
-        imgFiles.push(image.image);
-      }
       let response = await this.$store.dispatch("createPost", {
-        data: this.postInfo,
-        images: this.imgFiles,
-      });
-      if (response["error"] != "none") {
-        console.log({ response });
-        console.log("Error loading data");
-      } else if (
-        response["error"] == "none" ||
-        response["error"] == undefined
-      ) {
-        alert("Post Successfully Made!");
-        this.$router.push({ name: "Feed" });
-        console.log({ response });
-      } else {
-        console.log({ response });
-      }
+          data: this.postInfo,
+          images: this.images
+        });
+        if (response["error"] != "none") {
+          console.log({ response });
+          console.log("Error loading data");
+        } else if(response["error"] == 'none' || response["error"] == undefined) {
+          alert('Post Successfully Made!');
+          this.$router.push({name: 'Feed'});
+          console.log({ response });
+        } else {
+          console.log({ response });
+        }
     },
     async onSelectedFile(event) {
-      this.addImages = false;
-      if (this.images.length < 3) {
-        for (let index = 0; index < event.length; index++) {
-          this.images.push({ id: this.images.length + 1, image: event[index] });
-          const fileReader = new FileReader();
-          fileReader.addEventListener("load", () => {
-            this.tempUploadedImg.push({
-              id: this.images.length + 1,
-              image: fileReader.result,
-            });
-          });
-          fileReader.readAsDataURL(event[index]);
-        }
-        console.log(this.images);
-      } else {
-        this.$store.dispatch("alerts", {
-          type: "warning",
-          msg: "Maximum amount of images is 3.",
+      this.tempUploadedImg = [];
+      console.log(event);
+      this.images = event;
+      console.log(event[0]);
+      for (let index = 0; index < event.length; index++) {
+        const fileReader = new FileReader();
+        fileReader.addEventListener("load", () => {
+          this.tempUploadedImg.push(fileReader.result);
         });
+        fileReader.readAsDataURL(event[index]);
       }
+      console.log(this.images);
     },
     removeImage(id) {
       let temp = [];

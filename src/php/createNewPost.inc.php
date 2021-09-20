@@ -31,10 +31,19 @@ if (isset($_POST['tags'])) {
 // Images
 
 $isFiles = 1;
+if (count($_FILES) == 0) {
+    $isFiles = 0;
+}
+
+// ! Invalid 1 - Check if user has given too many images
+if (count($_FILES) > 3) {
+    $result["error"] = "maxImages";
+    exit(json_encode($result));
+}
 
 $uploadOk = array();
 
-$location = "/WebStorage/nya/postImgs/";
+$location = "/webStorage/nya/postImgs/";
 $file_temp = array();
 $file_size = array();
 $target_file = array();
@@ -42,37 +51,36 @@ $imageFileType = array();
 
 // CHECK IMAGES
 
-for ($i = 0; $i < count($_FILES); $i++) {
-    $file_temp[$i] = $_FILES[$i]["tmp_name"];
-    $file_size[$i] = $_FILES[$i]["size"];
-    $target_file[$i] = $location . basename($_FILES[$i]["name"]);
-    $imageFileType[$i] = strtolower(pathinfo($target_file[$i], PATHINFO_EXTENSION));
-    $uploadOk[$i] = 1;
-
-    // ! Invalid 3 - Check if image file is a actual image or fake image
-    $check = getimagesize($file_temp[$i]);
-    if ($check !== false) {
+if ($isFiles == 1) {
+    for ($i = 0; $i < count($_FILES); $i++) {
+        $file_temp[$i] = $_FILES[$i]["tmp_name"];
+        $file_size[$i] = $_FILES[$i]["size"];
+        $target_file[$i] = $location . basename($_FILES[$i]["name"]);
+        $imageFileType[$i] = strtolower(pathinfo($target_file[$i], PATHINFO_EXTENSION));
         $uploadOk[$i] = 1;
-    } else {
-        $uploadOk[$i] = 0;
-    }
 
-    // ! Invalid 4 - Check if file already exists
-    if (file_exists($target_file[$i])) {
-        $uploadOk[$i] = 0;
-    }
+        // ! Invalid 1 - Check if an image
+        $check = getimagesize($file_temp[$i]);
+        //echo var_dump(getimagesize($file_temp[$i]));
+        if ($check == false) {
+            $result["error"] = "imageNot";
+            exit(json_encode($result));
+        }
 
-    // ! Invalid 5 - Check file size
-    if ($file_size[$i] > 16000000) {
-        $uploadOk[$i] = 0;
-    }
+        // ! Invalid 2 - Does the file exist
+        if (file_exists($target_file[$i])) {
+            $result["error"] = "imageExists";
+            exit(json_encode($result));
+        }
 
-    // ! Invalid 6 - Allow certain file formats
-    if (
-        $imageFileType[$i] != "jpg" && $imageFileType[$i] != "png" && $imageFileType[$i] != "jpeg"
-        && $imageFileType[$i] != "gif"
-    ) {
-        $uploadOk[$i] = 0;
+        // ! Invalid 4 - Check for certain formats
+        if (
+            $imageFileType[$i] != "jpg" && $imageFileType[$i] != "png" && $imageFileType[$i] != "jpeg"
+            && $imageFileType[$i] != "gif"
+        ) {
+            $result["error"] = "imageType";
+            exit(json_encode($result));
+        }
     }
 }
 
@@ -108,11 +116,10 @@ if (empty($postsID)) {
 // ? ----- INSERT IMAGES -----
 
 for ($i = 0; $i < count($_FILES); $i++) {
-
     // Moves the file with the new name to the $location path
-    $file_new_name = 'post' . $postsID . $usersID . $i . '.jpg';
-    move_uploaded_file($file_temp[$i], $location . $file_new_name);
-
+    $file_new_name = 'post' . $postsID . "u" . $usersID . "i" . $i . '.jpg';
+    $mup = move_uploaded_file($file_temp[$i], $location . $file_new_name);
+    echo $mup;
     // Updates the partsImg to include the new imgs
     $sql = "INSERT INTO postsImg (postsID, usersID, postsImgPath) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);

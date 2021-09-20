@@ -7,10 +7,14 @@
     </v-card-title>
     <hr/>
     <v-card-text @click="$router.push({name: 'Post', params: {id: id}})">
-      <div v-for="image in imagePath" :key="image.postsImgID">
-        <p></p>
-        <img class="PostBorder" width="100%" height="auto" :src="'https://nyaz.io/webStorage/nya/postImgs/' + image.postsImgPath">
-      </div>
+      <v-carousel v-if="oneImg == 2" class="px-3 cardCar" hide-delimiters>
+      <v-carousel-item
+        v-for="(item, i) in imagePath"
+        :key="i"
+        :src="$store.state.baseStorageURL + 'postImgs/' + item.postsImgPath"
+      />
+    </v-carousel>
+    <img class="pa-2 mt-2" v-if="oneImg == 1" :src="$store.state.baseStorageURL + 'postImgs/' + imagePath[0]['postsImgPath']" width="100%">
     </v-card-text>
     <v-card-text class="postText" v-show="desc != ''" @click="$router.push({name: 'Post', params: {id: id}})">
       <p>
@@ -60,6 +64,7 @@ export default {
       recPublicKey: "",
       imagePath: [],
       comments: [],
+      oneImg: 0,
     };
   },
   mounted() {
@@ -78,12 +83,22 @@ export default {
     async getImages() {
       let response = await this.$store.dispatch('dataCall', {url: 'fetchPostImages', data: {postsID: this.id}});
       if (response['error'] != 'none'){
-        //console.log({response})
+        console.log({response})
         //console.log('Error loading images');
       } else {
-        //console.log({response});
+        console.log({response});
         delete response['error'];
-        this.imagePath = response;
+        this.imagePath = response["images"];
+        console.log(response["images"].length);
+        if (response["images"].length > 1){
+          this.oneImg = 2;
+        }
+        if (response["images"].length == 1){
+          this.oneImg = 1;
+        }
+        if (response["images"].length == 0 || this.imagePath == null || this.imagePath == undefined){
+          this.oneImg = 0;
+        }
       }
     }
   },
