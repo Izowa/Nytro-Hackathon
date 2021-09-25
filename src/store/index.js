@@ -130,6 +130,7 @@ export default new Vuex.Store({
       commit
     }) {
       commit("LOGOUT");
+      this.$router.push({ name: 'Feed' });
     },
     // This is for sending the email to the user to change the password
     async pwdRequest(email) {

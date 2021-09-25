@@ -9,12 +9,39 @@
           <SearchBar />
         </v-col>
         <v-col>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-show="$store.state.loggedIn"
+                style="float: right"
+                width="150px"
+                v-on="on"
+                text
+                color="primary"
+                >Account</v-btn
+              >
+            </template>
+            <v-list v-show="$store.state.loggedIn">
+              <v-list-item
+                v-for="link in links"
+                :key="link.text"
+                link
+                :to="link.route"
+              >
+              {{link.text}}
+              </v-list-item>
+              <v-list-item
+                @click="
+                  $store.dispatch('logoutUser');
+                "
+              >
+                Logout
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-btn width="150px" v-show="!$store.state.loggedIn" style="float: right" class="primary--text" text :to="{name: 'Login'}">Login</v-btn>
           <v-btn width="150px" v-show="!$store.state.loggedIn" style="float: right" class="primary--text" text :to="{name: 'SignUp'}">SignUp</v-btn>
-          <!---<v-btn v-show="$store.state.loggedIn" class="primary--text" text :to="{name: 'Profile', params: {id: $store.state.currentUser.usersID}}">Profile</v-btn>--->
-          <v-btn width="150px" v-show="$store.state.loggedIn" style="float: right" class="primary--text" text @click="logoutCall">Logout</v-btn>
           <v-btn width="150px" v-show="$store.state.loggedIn" style="float: right" class="primary--text" text :to="{name: 'BuyNyaz'}">Buy Nyaz</v-btn>
-          <!---<v-btn v-show="$store.state.loggedIn" class="primary--text" text :to="{name: 'Account'}"><v-icon>mdi-cog</v-icon></v-btn>--->
         </v-col>
       </v-row>
     </v-app-bar>
@@ -42,6 +69,21 @@
 import SearchBar from "@/components/SearchBar.vue";
 export default {
   components: { SearchBar },
+  data() {
+    return {
+      links: [
+        { text: "My Account", route: { name: "Account" } },
+        { text: "My Posts", route: { name: "PartsList" } },
+        {
+          text: "Profile",
+          route: {
+            name: "Profile",
+            params: { uid: this.$store.state.currentUser.usersUid },
+          },
+        },
+      ],
+    }
+  },
   methods: {
     logoutCall() {
       this.$store.dispatch("logoutUser");
