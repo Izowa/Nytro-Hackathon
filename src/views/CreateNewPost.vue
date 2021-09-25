@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   metaInfo: {
     title: "Create New Post",
@@ -86,7 +87,7 @@ export default {
         description: "",
         tags: [],
         nsfw: false,
-        usersID: this.$store.state.currentUser.usersID,
+        usersID: 0,
       },
       images: [],
       tempTag: "",
@@ -94,12 +95,15 @@ export default {
       rules: [(v) => !!v || "Required Field"],
     };
   },
+  computed: {
+    ...mapState('auth', ['currentUser', 'loggedIn'])
+  },
   mounted() {
-    if (this.$store.state.loggedIn == false) {
+    if (this.loggedIn == false) {
       alert("Please login to create a post!");
       this.$router.push({ name: "Feed" });
     }
-    this.postInfo.usersID = this.$store.state.currentUser["usersID"];
+    this.postInfo.usersID = this.currentUser["usersID"];
   },
   methods: {
     async newPostCall() {

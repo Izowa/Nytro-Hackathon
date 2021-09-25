@@ -1,45 +1,77 @@
 <template>
-  <v-card class="mb-5 pa-2 pointerG topPostBox" width="100%" min-height="200px" color="primary" >
-    <v-card-title style="word-break: break-word" @click="$router.push({name: 'Post', params: {id: id}})">
-      <h2>{{title}}</h2>
-      <v-spacer/>
-      <span class="font-weight-light">@{{usersUid}}</span>
+  <v-card
+    class="mb-5 pa-2 pointerG topPostBox"
+    width="100%"
+    min-height="200px"
+    color="primary"
+  >
+    <v-card-title
+      style="word-break: break-word"
+      @click="$router.push({ name: 'Post', params: { id: id } })"
+    >
+      <h2>{{ title }}</h2>
+      <v-spacer />
+      <span class="font-weight-light">@{{ usersUid }}</span>
     </v-card-title>
-    <hr/>
-    <v-card-text @click="$router.push({name: 'Post', params: {id: id}})">
+    <hr />
+    <v-card-text @click="$router.push({ name: 'Post', params: { id: id } })">
       <v-carousel v-if="oneImg == 2" class="px-3 cardCar" hide-delimiters>
-      <v-carousel-item
-        v-for="(item, i) in imagePath"
-        :key="i"
-        :src="$store.state.baseStorageURL + 'postImgs/' + item.postsImgPath"
+        <v-carousel-item
+          v-for="(item, i) in imagePath"
+          :key="i"
+          :src="baseStorageURL + 'postImgs/' + item.postsImgPath"
+        />
+      </v-carousel>
+      <img
+        class="pa-2 mt-2"
+        v-if="oneImg == 1"
+        :src="
+          baseStorageURL +
+          'postImgs/' +
+          imagePath[0]['postsImgPath']
+        "
+        width="100%"
       />
-    </v-carousel>
-    <img class="pa-2 mt-2" v-if="oneImg == 1" :src="$store.state.baseStorageURL + 'postImgs/' + imagePath[0]['postsImgPath']" width="100%">
     </v-card-text>
-    <v-card-text class="postText" v-show="desc != ''" @click="$router.push({name: 'Post', params: {id: id}})">
+    <v-card-text
+      class="postText"
+      v-show="desc != ''"
+      @click="$router.push({ name: 'Post', params: { id: id } })"
+    >
       <p>
-        {{desc}}
+        {{ desc }}
       </p>
     </v-card-text>
-    <hr/>
+    <hr />
     <v-card-actions>
       <v-row>
         <v-col>
           <div class="d-inline-flex">
-            <v-icon >mdi-comment</v-icon>
-             <p class="ml-2 mt-3 black--text">None</p>
+            <v-icon>mdi-comment</v-icon>
+            <p class="ml-2 mt-3 black--text">None</p>
           </div>
         </v-col>
         <v-col>
           <div class="d-inline-flex">
-             <img class="smallPaw" src="@/assets/paw.svg" width="40" height="40" />
-             <p class="smallCounter white rounded-pill black--text">{{likes}}</p>
+            <img
+              class="smallPaw"
+              src="@/assets/paw.svg"
+              width="40"
+              height="40"
+            />
+            <p class="smallCounter white rounded-pill black--text">
+              {{ likes }}
+            </p>
           </div>
         </v-col>
         <v-col>
           <div class="d-inline-flex">
-             <img src="@/assets/nya.png" width="40" height="40" />
-             <Upvote :recPublicKey="recPublicKey" :postsID="id" :usersID="$store.state.auth.currentUser.usersID"/>
+            <img src="@/assets/nya.png" width="40" height="40" />
+            <Upvote
+              :recPublicKey="recPublicKey"
+              :postsID="id"
+              :usersID="currentUser.usersID"
+            />
           </div>
         </v-col>
       </v-row>
@@ -48,7 +80,8 @@
 </template>
 
 <script>
-import Upvote from '@/components/Upvote.vue';
+import Upvote from "@/components/Upvote.vue";
+import { mapState } from 'vuex';
 export default {
   components: { Upvote },
   props: ["post"],
@@ -67,10 +100,12 @@ export default {
       oneImg: 0,
     };
   },
-    computed: {
+  computed: {
     commentsCount() {
       return this.comments.length;
     },
+    ...mapState(['baseStorageURL']),
+    ...mapState('auth', ['currentUser'])
   },
   mounted() {
     this.id = this.post.postsID;
@@ -86,60 +121,65 @@ export default {
   },
   methods: {
     async getImages() {
-      let response = await this.$store.dispatch('data/dataPost', {url: 'fetchPostImages', data: {postsID: this.id}});
-      if (response['error'] != 'none'){
-        console.log({response})
+      let response = await this.$store.dispatch("data/dataPost", {
+        url: "fetchPostImages",
+        data: { postsID: this.id },
+      });
+      if (response["error"] != "none") {
+        console.log({ response });
         //console.log('Error loading images');
       } else {
         //console.log({response});
-        delete response['error'];
+        delete response["error"];
         this.imagePath = response["images"];
         console.log(response["images"].length);
-        if (response["images"].length > 1){
+        if (response["images"].length > 1) {
           this.oneImg = 2;
         }
-        if (response["images"].length == 1){
+        if (response["images"].length == 1) {
           this.oneImg = 1;
         }
-        if (response["images"].length == 0 || this.imagePath == null || this.imagePath == undefined){
+        if (
+          response["images"].length == 0 ||
+          this.imagePath == null ||
+          this.imagePath == undefined
+        ) {
           this.oneImg = 0;
         }
       }
-    }
+    },
   },
 };
 </script>
 
 <style>
-
-hr{
+hr {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   border-color: rgba(0, 0, 0, 0.144);
 }
 
-.smallPaw{
+.smallPaw {
   margin-right: 1rem;
 }
 
-.smallCounter{
+.smallCounter {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 1rem;
   padding-left: 1rem;
 }
 
-.postText{
+.postText {
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.15);
 }
 
-.PostBorder{
+.PostBorder {
   border-radius: 1rem !important;
 }
 
-.topPostBox{
+.topPostBox {
   border-radius: 1rem !important;
 }
-
 </style>

@@ -59,6 +59,7 @@ const Int64 = require("node-int64");
 
 const Tran = require("@/js/Transaction.js");
 import axios from "axios";
+import { mapState } from 'vuex';
 export default {
   props: ["recPublicKey"],
   metaInfo: {
@@ -80,11 +81,14 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState('auth', ['currentUser'])
+  },
   mounted() {},
   methods: {
     async listen() {
       var testPK = this.keys.privateKey;
-      var teskPublic = this.$store.state.currentUser.usersPublicKey;
+      var teskPublic = this.currentUser.usersPublicKey;
 
       var testRecv = "id__89ng86VtkW_TDC~9WNUnNXGTX7WiH8aFAwTqkNKgTxz-vz_AaE87";
 

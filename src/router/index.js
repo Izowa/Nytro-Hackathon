@@ -39,11 +39,6 @@ const routes = [
     component: () => import('../views/BuyNyaz.vue')
   },
   {
-    path: '/change-password/:auth',
-    name: 'ChangePassword',
-    component: () => import('../views/ChangePassword.vue')
-  },
-  {
     path: '/create-new-post',
     name: 'CreateNewPost',
     component: () => import('../views/CreateNewPost.vue')
@@ -67,11 +62,6 @@ const routes = [
     path: '/profile/:uID',
     name: 'Profile',
     component: () => import('../views/Profile.vue')
-  },
-  {
-    path: '/password-request',
-    name: 'PwdRequest',
-    component: () => import('../views/PwdRequest.vue')
   },
   {
     path: '/feed/search/:searchTerm',

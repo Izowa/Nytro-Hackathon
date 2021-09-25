@@ -25,7 +25,7 @@
                 width="100%"
                 height="auto"
                 :src="
-                  'https://nyaz.io/webStorage/nya/postImgs/' +
+                  baseStorageURL + 'postImgs/' +
                   image.postsImgPath
                 "
               />
@@ -45,7 +45,7 @@
                 :usersID="postD.usersID"
               />
             </div>
-            <v-card elevation="5" v-show="$store.state.loggedIn">
+            <v-card elevation="5" v-show="loggedIn">
               <v-card-title>Write a comment</v-card-title>
               <v-card-text>
                 <v-text-field
@@ -73,6 +73,7 @@
 import AccountWidget from "@/components/AccountWidget.vue";
 import Comment from "@/components/Comment.vue";
 import Upvote from "@/components/Upvote.vue";
+import { mapState } from 'vuex';
 export default {
   components: {
     AccountWidget,
@@ -93,6 +94,10 @@ export default {
       newComment: "",
     };
   },
+  computed: {
+    ...mapState(['baseStorageURL']),
+    ...mapState('auth', ['currentUser', 'loggedIn'])
+  },
   mounted() {
     this.getPost();
     this.getImages();
@@ -101,12 +106,12 @@ export default {
   },
   methods: {
     async createCommentCall() {
-      if (this.$store.state.loggedIn == true) {
+      if (this.loggedIn == true) {
         let response = await this.$store.dispatch("data/dataPost", {
           url: "createComment",
           data: {
             postsID: this.$route.params.id,
-            usersID: this.$store.state.currentUser.usersID,
+            usersID: this.currentUser.usersID,
             comment: this.newComment,
           },
         });
@@ -127,8 +132,7 @@ export default {
         data: { postsID: this.$route.params.id },
       });
       if (response["error"] != "none") {
-        //console.log({ response });
-        //console.log("Error loading data");
+        console.log({ response });
       } else {
         //console.log({ response });
         delete response["error"];

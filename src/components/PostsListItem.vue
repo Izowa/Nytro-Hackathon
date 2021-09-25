@@ -118,7 +118,18 @@ export default {
       }
     },
     async getImages() {
-
+      let response = await this.$store.dispatch("data/dataPost", {
+        url: "fetchPostImages",
+        data: { postsID: this.id },
+      });
+      if (response["error"] != "none") {
+        console.log({ response });
+        //console.log('Error loading images');
+      } else {
+        //console.log({response});
+        delete response["error"];
+        this.images = response["images"];
+      }
     },
   },
   mounted() {
