@@ -7,7 +7,7 @@
             <v-col>
               <div class="d-inline-flex">
                 <img
-                  src="@/assets/nya.png"
+                  src="@/assets/images/nya.png"
                   width="150px"
                   height="150px"
                   alt=""
@@ -25,35 +25,33 @@
               <div class="d-inline-flex">
                 <img
                   class="mr-2"
-                  src="@/assets/meme.png"
                   width="150px"
                   height="150px"
                 />
                 <img
                   class="mr-2"
-                  src="@/assets/meme.png"
                   width="150px"
                   height="150px"
                 />
-                <img src="@/assets/meme.png" width="150px" height="150px" />
+                <img width="150px" height="150px" />
               </div>
             </v-col>
             <v-col>
               <h3 class="mb-2">Nya Level</h3>
               <div class="d-inline-flex">
-                <img src="@/assets/paw.svg" width="50" height="50" />
+                <img src="@/assets/images/paw.svg" width="50" height="50" />
                 <p class="white rounded-pill mb-5 ml-5 pa-3 black--text">
                   None
                 </p>
               </div>
               <h3 class="mb-2">Total Nya Gained</h3>
               <div class="d-inline-flex">
-                <img src="@/assets/paw.svg" width="50" height="50" />
+                <img src="@/assets/images/paw.svg" width="50" height="50" />
                 <p class="white rounded-pill mb-7 ml-5 pa-3 black--text">123</p>
               </div>
               <h3 class="mb-2">Highest Nya on a single post</h3>
               <div class="d-inline-flex">
-                <img src="@/assets/paw.svg" width="50" height="50" />
+                <img src="@/assets/images/paw.svg" width="50" height="50" />
                 <p class="white rounded-pill mb-7 ml-5 pa-3 black--text">123</p>
               </div>
               <router-link></router-link>

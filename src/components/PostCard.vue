@@ -55,7 +55,7 @@
           <div class="d-inline-flex">
             <img
               class="smallPaw"
-              src="@/assets/paw.svg"
+              src="@/assets/images/paw.svg"
               width="40"
               height="40"
             />
@@ -66,7 +66,7 @@
         </v-col>
         <v-col>
           <div class="d-inline-flex">
-            <img src="@/assets/nya.png" width="40" height="40" />
+            <img src="@/assets/images/nya.png" width="40" height="40" />
             <Upvote
               :recPublicKey="recPublicKey"
               :postsID="id"

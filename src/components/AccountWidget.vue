@@ -3,17 +3,17 @@
       <v-card-text v-show="loggedIn">
           <h3 class="mb-2">Nyaz Balance</h3>
           <div class="d-inline-flex">
-             <img src="@/assets/paw.svg" width="50" height="50" />
+             <img src="@/assets/images/paw.svg" width="50" height="50" />
              <p class="white rounded-pill mb-5 ml-5 pa-3 black--text">Coming Soon</p>
           </div>
           <h3 class="mb-2">Nya Level</h3>
           <div class="d-inline-flex">
-             <img src="@/assets/paw.svg" width="50" height="50" />
+             <img src="@/assets/images/paw.svg" width="50" height="50" />
              <p class="white rounded-pill mb-5 ml-5 pa-3 black--text">Coming Soon</p>
           </div>
           <h3 class="mb-2">Total Nya Gained</h3>
           <div class="d-inline-flex">
-             <img src="@/assets/paw.svg" width="50" height="50" />
+             <img src="@/assets/images/paw.svg" width="50" height="50" />
              <p class="white rounded-pill mb-7 ml-5 pa-3 black--text">Coming Soon</p>
           </div>
       </v-card-text>

@@ -7,7 +7,7 @@
     </v-container>
   </v-main>
   <v-footer app color="grey">
-    <img src="@/assets/cat.png" :width="$vuetify.breakpoint.mobile ? '150px' : '300px'" height="auto" :class="{'cat': $vuetify.breakpoint. mdAndUp, 'catMobile': $vuetify.breakpoint. smAndDown}">
+    <img src="@/assets/images/cat.png" :width="$vuetify.breakpoint.mobile ? '150px' : '300px'" height="auto" :class="{'cat': $vuetify.breakpoint. mdAndUp, 'catMobile': $vuetify.breakpoint. smAndDown}">
     <h5 class="mx-auto pa-5">@ Lost Night Studios</h5>
   </v-footer>
 </v-app>
