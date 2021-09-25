@@ -1,6 +1,6 @@
 <template>
   <v-card color="primary" class="pa-6 topAcountBox" :width="$vuetify.breakpoint.mobile ? '500px' : 'auto'">
-      <v-card-text v-show="$store.state.loggedIn">
+      <v-card-text v-show="$store.state.auth.loggedIn">
           <h3 class="mb-2">Nyaz Balance</h3>
           <div class="d-inline-flex">
              <img src="@/assets/paw.svg" width="50" height="50" />
@@ -17,7 +17,7 @@
              <p class="white rounded-pill mb-7 ml-5 pa-3 black--text">Coming Soon</p>
           </div>
       </v-card-text>
-      <v-card-text v-show="!$store.state.loggedIn">
+      <v-card-text v-show="!$store.state.auth.loggedIn">
          <div class="d-inline-flex">
             <h2 class="font-weight-bold mr-1 mb-3 white--text">Login to access</h2>
          </div>
@@ -26,7 +26,7 @@
             <li>Upvote</li>
             <li>Comment</li>
          </ul>
-         <v-btn v-show="!$store.state.loggedIn" to="/login">Sign me in!</v-btn>
+         <v-btn v-show="!$store.state.auth.loggedIn" to="/login">Sign me in!</v-btn>
       </v-card-text>
   </v-card>
 </template>

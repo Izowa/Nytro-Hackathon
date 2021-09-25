@@ -34,16 +34,14 @@ export default {
   methods: {
     async fetchTop() {
       if (this.reachedMax == false) {
-        if (this.reachedMax == false) {
-        let response = await this.$store.dispatch("dataCall", {
+        let response = await this.$store.dispatch("data/dataPost", {
           url: "fetchTop",
           data: {
             start: this.start,
             limit: this.limit,
           },
         });
-        console.log(response);
-        //console.log(response["reachedMax"]);
+        //console.log(response);
         if (response["reachedMax"] == true) {
           this.reachedMax = true;
         } else if (response["reachedMax"] == false) {
@@ -52,10 +50,7 @@ export default {
           posts.forEach((element) => {
             this.fetchedPosts.push(element);
           });
-          //this.fetchedPosts = posts;
-          //console.log(this.fetchedPosts);
         }
-      }
       }
     },
     atBottomScroll() {

@@ -39,7 +39,7 @@
         <v-col>
           <div class="d-inline-flex">
              <img src="@/assets/nya.png" width="40" height="40" />
-             <Upvote :recPublicKey="recPublicKey" :postsID="id" :usersID="$store.state.currentUser.usersID"/>
+             <Upvote :recPublicKey="recPublicKey" :postsID="id" :usersID="$store.state.auth.currentUser.usersID"/>
           </div>
         </v-col>
       </v-row>
@@ -67,6 +67,11 @@ export default {
       oneImg: 0,
     };
   },
+    computed: {
+    commentsCount() {
+      return this.comments.length;
+    },
+  },
   mounted() {
     this.id = this.post.postsID;
     this.usersUid = this.post.usersUid;
@@ -81,12 +86,12 @@ export default {
   },
   methods: {
     async getImages() {
-      let response = await this.$store.dispatch('dataCall', {url: 'fetchPostImages', data: {postsID: this.id}});
+      let response = await this.$store.dispatch('data/dataPost', {url: 'fetchPostImages', data: {postsID: this.id}});
       if (response['error'] != 'none'){
         console.log({response})
         //console.log('Error loading images');
       } else {
-        console.log({response});
+        //console.log({response});
         delete response['error'];
         this.imagePath = response["images"];
         console.log(response["images"].length);
@@ -101,11 +106,6 @@ export default {
         }
       }
     }
-  },
-  computed: {
-    commentsCount() {
-      return this.comments.length;
-    },
   },
 };
 </script>

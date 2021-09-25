@@ -49,11 +49,6 @@ const routes = [
     component: () => import('../views/CreateNewPost.vue')
   },
   {
-    path: '/link-nyzo',
-    name: 'LinkNyzo',
-    component: () => import('../views/LinkNyzo.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
@@ -97,6 +92,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

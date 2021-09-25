@@ -4,8 +4,8 @@ import Vuetify from 'vuetify/lib/framework';
 Vue.use(Vuetify);
 
 export default new Vuetify({
-    theme: { 
-      dark: true,
+  theme: {
+    dark: true,
     themes: {
       dark: {
         primary: '#BF3D3D',
@@ -17,6 +17,6 @@ export default new Vuetify({
         secondary: '#312F2F',
         accent: '#707070'
       }
-      }
-    },
-  })
+    }
+  },
+})

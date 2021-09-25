@@ -23,10 +23,6 @@ export default  {
   components: {
     NavBar
   },
-  created() {
-    this.$vuetify.theme.dark;
-    this.$store.dispatch("loadUser");
-  }
 };
 </script>
 

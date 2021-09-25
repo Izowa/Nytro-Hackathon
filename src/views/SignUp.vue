@@ -103,10 +103,10 @@ export default {
         alert("Please agree to the Privacy Policy")
       } else {
         let response = await this.$store.dispatch(
-          "registerUser",
+          "auth/registerUser",
           this.registerInfo
         );
-        console.table(response.data);
+        console.log(response.data);
         if (response['usersID'] > 0){
           this.$router.push({name: 'Feed'});
         } else {

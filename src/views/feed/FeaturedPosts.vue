@@ -34,14 +34,14 @@ export default {
   methods: {
     async fetchFeatured() {
       if (this.reachedMax == false) {
-        let response = await this.$store.dispatch("dataCall", {
+        let response = await this.$store.dispatch("data/dataPost", {
           url: "fetchFeatured",
           data: {
             start: this.start,
             limit: this.limit,
           },
         });
-        console.log(response);
+        //console.log(response);
         //console.log(response["reachedMax"]);
         if (response["reachedMax"] == true) {
           this.reachedMax = true;
@@ -51,8 +51,6 @@ export default {
           posts.forEach((element) => {
             this.fetchedPosts.push(element);
           });
-          //this.fetchedPosts = posts;
-          //console.log(this.fetchedPosts);
         }
       }
     },

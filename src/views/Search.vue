@@ -35,7 +35,7 @@ export default {
   methods: {
     async fetchSearch() {
       if (this.reachedMax == false) {
-        let response = await this.$store.dispatch("dataCall", {
+        let response = await this.$store.dispatch("data/dataPost", {
           url: "fetchSearch",
           data: {
             start: this.start,
@@ -44,7 +44,6 @@ export default {
           },
         });
         console.log(response);
-        //console.log(response["reachedMax"]);
         if (response["reachedMax"] == true) {
           this.reachedMax = true;
         } else if (response["reachedMax"] == false) {
@@ -53,8 +52,6 @@ export default {
           posts.forEach((element) => {
             this.fetchedPosts.push(element);
           });
-          //this.fetchedPosts = posts;
-          //console.log(this.fetchedPosts);
         }
       }
     },

@@ -71,14 +71,13 @@
 
 <script>
 import $ from "jquery";
-import axios from "axios";
 import PostCard from "@/components/PostCard.vue";
 export default {
   components: { PostCard },
   metaInfo: {
-    title: 'Profile',
-    'http-equiv': "Content-Security-Policy",
-    content: "upgrade-insecure-requests"
+    title: "Profile",
+    "http-equiv": "Content-Security-Policy",
+    content: "upgrade-insecure-requests",
   },
   data() {
     return {
@@ -90,27 +89,43 @@ export default {
     };
   },
   methods: {
+    async fetchUser() {
+      let response = await this.$store.dispatch("data/dataPost", {
+        url: "fetchUser",
+        data: {
+          usersID: this.id,
+        },
+      });
+      //console.log(response);
+      if (response["reachedMax"] == true) {
+        this.reachedMax = true;
+      } else if (response["reachedMax"] == false) {
+        this.start += this.limit;
+        let posts = response["posts"];
+        posts.forEach((element) => {
+          this.fetchedPosts.push(element);
+        });
+      }
+    },
     async fetchUserPosts() {
       if (this.reachedMax == false) {
-        let formData = new FormData();
-        formData.append("start", this.start);
-        formData.append("limit", this.limit);
-        let response = await axios.post(
-          "https://nyaz.io/nya/fetchUserPosts.inc.php",
-          formData
-        );
-        console.log(response);
-        //console.log(response.data["reachedMax"]);
-        if (response.data["reachedMax"] == true) {
+        let response = await this.$store.dispatch("data/dataPost", {
+          url: "fetchUserPosts",
+          data: {
+            start: this.start,
+            limit: this.limit,
+            usersID: this.id,
+          },
+        });
+        //console.log(response);
+        if (response["reachedMax"] == true) {
           this.reachedMax = true;
-        } else if (response.data["reachedMax"] == false) {
+        } else if (response["reachedMax"] == false) {
           this.start += this.limit;
-          let posts = response.data["posts"];
+          let posts = response["posts"];
           posts.forEach((element) => {
             this.fetchedPosts.push(element);
           });
-          //this.fetchedPosts = posts;
-          //console.log(this.fetchedPosts);
         }
       }
     },

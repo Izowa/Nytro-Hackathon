@@ -107,7 +107,7 @@ export default {
   methods: {
     async confirmDeletePost() {
       console.log(this.post.postsID);
-      let response = await this.$store.dispatch("deletePost", {
+      let response = await this.$store.dispatch("data/deletePost", {
         postsID: this.post.postsID,
       });
       console.log(response);

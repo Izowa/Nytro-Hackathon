@@ -15,7 +15,6 @@
 
 <script>
 import $ from "jquery";
-import axios from "axios";
 import PostCard from "@/components/PostCard.vue";
 import AccountWidget from "@/components/AccountWidget.vue";
 export default {
@@ -36,22 +35,22 @@ export default {
   methods: {
     async fetchNew() {
       if (this.reachedMax == false) {
-        let formData = new FormData();
-        formData.append('start', this.start);
-        formData.append('limit', this.limit);
-        let response = await axios.post("https://nyaz.io/nya/fetchNew.inc.php", formData);
-        console.log(response);
-        //console.log(response.data["reachedMax"]);
-        if (response.data["reachedMax"] == true) {
+        let response = await this.$store.dispatch("data/dataPost", {
+          url: "fetchNew",
+          data: {
+            start: this.start,
+            limit: this.limit,
+          },
+        });
+        //console.log(response);
+        if (response["reachedMax"] == true) {
           this.reachedMax = true;
-        } else if (response.data["reachedMax"] == false) {
+        } else if (response["reachedMax"] == false) {
           this.start += this.limit;
-          let posts = response.data["posts"];
+          let posts = response["posts"];
           posts.forEach((element) => {
             this.fetchedPosts.push(element);
           });
-          //this.fetchedPosts = posts;
-          //console.log(this.fetchedPosts);
         }
       }
     },

@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     async newPostCall() {
-      let response = await this.$store.dispatch("createPost", {
+      let response = await this.$store.dispatch("data/createPost", {
           data: this.postInfo,
           images: this.images
         });

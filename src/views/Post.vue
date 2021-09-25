@@ -102,7 +102,7 @@ export default {
   methods: {
     async createCommentCall() {
       if (this.$store.state.loggedIn == true) {
-        let response = await this.$store.dispatch("dataCall", {
+        let response = await this.$store.dispatch("data/dataPost", {
           url: "createComment",
           data: {
             postsID: this.$route.params.id,
@@ -122,7 +122,7 @@ export default {
       }
     },
     async getPost() {
-      let response = await this.$store.dispatch("dataCall", {
+      let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchPost",
         data: { postsID: this.$route.params.id },
       });
@@ -136,7 +136,7 @@ export default {
       }
     },
     async getImages() {
-      let response = await this.$store.dispatch("dataCall", {
+      let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchPostImages",
         data: { postsID: this.$route.params.id },
       });
@@ -151,7 +151,7 @@ export default {
     },
     async getComments() {
       this.comments = [];
-      let response = await this.$store.dispatch("dataCall", {
+      let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchPostComments",
         data: { postsID: this.$route.params.id },
       });
@@ -165,7 +165,7 @@ export default {
       }
     },
     async getTags() {
-      let response = await this.$store.dispatch("dataCall", {
+      let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchPostTags",
         data: { postsID: this.$route.params.id },
       });

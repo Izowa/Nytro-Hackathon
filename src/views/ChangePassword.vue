@@ -59,7 +59,7 @@ export default {
       formData.append("password", this.info.password);
       formData.append("pwdRepeat", this.info.pwdRepeat);
       let responseError = await this.$store.dispatch(
-        "changePassword",
+        "auth/changePassword",
         formData
       );
       console.log(responseError);

@@ -17,6 +17,7 @@
 
 <script>
 import PostsListItem from "@/components/PostsListItem.vue";
+import { mapState } from 'vuex';
 export default {
   emits: ["deletedPost"],
   components: { PostsListItem },
@@ -26,13 +27,16 @@ export default {
       hasPosts: true,
     };
   },
+  computed: {
+    ...mapState('auth', ['currentUser'])
+  },
   mounted() {
     this.pwdCheckCall();
     this.getPosts();
   },
   methods: {
     async pwdCheckCall() {
-      let response = await this.$store.dispatch("pwdCheck");
+      let response = await this.$store.dispatch("auth/pwdCheck");
       console.log(response);
       if (response["error"] == "userNotFound") {
         alert(
@@ -59,10 +63,9 @@ export default {
       this.getPosts();
     },
     async getPosts() {
-      //console.log(this.$store.state.currentUser.usersID);
-      let response = await this.$store.dispatch("dataCall", {
+      let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchUserPosts",
-        data: { usersID: this.$store.state.currentUser.usersID },
+        data: { usersID: this.currentUser.usersID },
       });
       console.log(response);
       if (response["error"] == "none") {

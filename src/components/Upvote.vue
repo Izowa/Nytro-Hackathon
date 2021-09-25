@@ -152,7 +152,7 @@ export default {
       var tx2 = NyzoStringEncoder.nyzoStringEncoder.encode(a);
       console.log(tx2);
       let dataFin = this.data + this.postsID;
-      let response = await this.$store.dispatch('txSubmit', {usersID: this.usersID, txString: tx2, Data: dataFin});
+      let response = await this.$store.dispatch('auth/txSubmit', {usersID: this.usersID, txString: tx2, Data: dataFin});
       if (response['error'] == 'none') {
         alert('Upvote successful');
       }

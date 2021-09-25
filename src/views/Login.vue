@@ -50,7 +50,7 @@ export default {
       let formData = new FormData();
       formData.append("email", this.loginInfo.email);
       formData.append("password", this.loginInfo.password);
-      let userError = await this.$store.dispatch("loginUser", formData);
+      let userError = await this.$store.dispatch("auth/loginUser", formData);
       console.log(userError);
       if (userError == "none" || userError == undefined) {
         //alert("User Successfully Logged Up!");

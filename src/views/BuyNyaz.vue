@@ -178,7 +178,7 @@ export default {
 
       var tx2 = NyzoStringEncoder.nyzoStringEncoder.encode(a);
       console.log(tx2);
-      let response = await this.$store.dispatch("txSubmit", {
+      let response = await this.$store.dispatch("auth/txSubmit", {
         usersID: this.usersID,
         txString: tx2,
         Data: this.data,
