@@ -53,7 +53,7 @@ export default {
       let userError = await this.$store.dispatch("auth/loginUser", formData);
       console.log(userError);
       if (userError == "none" || userError == undefined) {
-        this.$store.dispatch('alerts', {type: "success", msg: "Welcome back " + response["usersUid"]})
+        this.$store.dispatch('alerts', {type: "success", msg: "Successfully Logged In"})
         this.$router.push({name: 'Feed'});
       } else if (userError == "stmtFailed") {
         this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})

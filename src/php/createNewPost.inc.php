@@ -43,7 +43,7 @@ if (count($_FILES) > 3) {
 
 $uploadOk = array();
 
-$location = "/webStorage/nya/postImgs/";
+$location = "../webStorage/nya/postImgs/";
 $file_temp = array();
 $file_size = array();
 $target_file = array();
@@ -118,8 +118,7 @@ if (empty($postsID)) {
 for ($i = 0; $i < count($_FILES); $i++) {
     // Moves the file with the new name to the $location path
     $file_new_name = 'post' . $postsID . "u" . $usersID . "i" . $i . '.jpg';
-    $mup = move_uploaded_file($file_temp[$i], $location . $file_new_name);
-    echo $mup;
+    move_uploaded_file($file_temp[$i], $location . $file_new_name);
     // Updates the partsImg to include the new imgs
     $sql = "INSERT INTO postsImg (postsID, usersID, postsImgPath) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);

@@ -33,13 +33,14 @@ export default {
         },
         async deletePost({
             commit,
-            state
+            state,
+            rootState
         }, formObj) {
             let formData = new FormData();
             console.log(formObj);
             formData.append("postsID", formObj["postsID"])
-            formData.append("usersID", state.auth.currentUser.usersID);
-            formData.append("usersPwd", state.auth.currentUser.usersPwd);
+            formData.append("usersID", rootState.auth.currentUser.usersID);
+            formData.append("usersPwd", rootState.auth.currentUser.usersPwd);
             let response = await axios.post('https://nyaz.io/nya/deletePost.inc.php', formData).catch(e => {
                 console.log(e);
             });

@@ -54,7 +54,7 @@
     >
       <v-row>
         <v-col>
-          <h2>{{ post.postsName }}</h2>
+          <h2>{{ post.postsTitle }}</h2>
           <v-btn
             @click="
               $router.push({ name: 'Post', params: { id: post.postsID } })
@@ -133,18 +133,18 @@ export default {
         data: { postsID: this.id },
       });
       if (response["error"] != 'none') {
-        console.log(response["error"]);
+        //console.log(response["error"]);
       }
       if(response["error"] == 'none') {
         this.$emit("deletedPost");
         delete response["error"];
         this.images = response["images"];
       } else if ((response["error"] == "stmtFailed")) {
-        this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})
+        //this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})
       } else if ((response["error"] == "postNotFound")) {
-        this.$store.dispatch('alerts', {type: "error", msg: "There was an issue finding the images."})
+        //this.$store.dispatch('alerts', {type: "error", msg: "There was an issue finding the images."})
       } else {
-        this.$store.dispatch('alerts', {type: "error", msg: "An unknown error has occurred, please try again."})
+        //this.$store.dispatch('alerts', {type: "error", msg: "An unknown error has occurred, please try again."})
       }
     },
   },
