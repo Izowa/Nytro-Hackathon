@@ -1,6 +1,7 @@
 <template>
   <v-app class="coreBG">
   <NavBar/>
+  <Alert />
   <v-main>
     <v-container fluid>
       <router-view></router-view>
@@ -14,14 +15,16 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue';
+import Alert from '@/components/Alert.vue';
 export default  {
   name: 'App',
   metaInfo: {
     title: 'Nyaz'
   },
   components: {
-    NavBar
+    NavBar,
+    Alert
   },
 };
 </script>

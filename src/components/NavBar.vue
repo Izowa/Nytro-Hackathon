@@ -85,7 +85,7 @@ export default {
           text: "Profile",
           route: {
             name: "Profile",
-            params: { uid: this.currentUser.usersUid },
+            params: { uID: this.currentUser.usersUid },
           },
         },
       ];
@@ -99,4 +99,5 @@ export default {
 </script>
 
 <style>
+
 </style>

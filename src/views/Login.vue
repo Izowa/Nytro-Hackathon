@@ -53,16 +53,16 @@ export default {
       let userError = await this.$store.dispatch("auth/loginUser", formData);
       console.log(userError);
       if (userError == "none" || userError == undefined) {
-        //alert("User Successfully Logged Up!");
+        this.$store.dispatch('alerts', {type: "success", msg: "Welcome back " + response["usersUid"]})
         this.$router.push({name: 'Feed'});
       } else if (userError == "stmtFailed") {
-        alert("Something has gone wrong on our end!");
+        this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})
       } else if (userError == "enterAllFields") {
-        alert("Please enter in all the information required");
+        this.$store.dispatch('alerts', {type: "warning", msg: "Please enter in all the information required."})
       } else if (userError == "uidNoExist") {
-        alert("That user seems to not exist");
+        this.$store.dispatch('alerts', {type: "error", msg: "That user seems to not exist."})
       } else {
-        alert("An unknown error has occured, please try again");
+        this.$store.dispatch('alerts', {type: "error", msg: "An unknown error has occurred, please try again."})
       }
     },
   },

@@ -112,13 +112,14 @@ export default {
           images: this.images
         });
         if (response["error"] != "none") {
+          this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
           console.log({ response });
           console.log("Error loading data");
         } else if(response["error"] == 'none' || response["error"] == undefined) {
-          alert('Post Successfully Made!');
+          this.$store.dispatch('alerts', {type: "success", msg: "Post Successfully made!"})
           this.$router.push({name: 'Feed'});
-          console.log({ response });
         } else {
+          this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
           console.log({ response });
         }
     },
@@ -169,14 +170,6 @@ export default {
       this.postInfo.tags = this.postInfo.tags.filter((item) => {
         return tag !== item;
       });
-    },
-  },
-  computed: {
-    tempImg() {
-      return (
-        "https://nyaz.io/webStorage/nya/postImgs/tempImgs/" +
-        this.tempUploadedImg
-      );
     },
   },
 };

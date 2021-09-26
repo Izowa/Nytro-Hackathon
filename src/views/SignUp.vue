@@ -96,11 +96,11 @@ export default {
     async registerUserCall() {
       console.log("Handle Submit");
       if (this.registerInfo.pwd != this.registerInfo.pwdRepeat) {
-        alert("Passwords do not match");
+        this.$store.dispatch('alerts', {type: "warning", msg: "Passwords do not match."})
       } else if (this.registerInfo.tos != true) {
-        alert("Please agree to the Terms of Service")
+        this.$store.dispatch('alerts', {type: "warning", msg: "Please agree to the Terms of Service."})
       } else if (this.registerInfo.privacy != true) {
-        alert("Please agree to the Privacy Policy")
+        this.$store.dispatch('alerts', {type: "warning", msg: "Please agree to the Privacy Policy."})
       } else {
         let response = await this.$store.dispatch(
           "auth/registerUser",
@@ -110,7 +110,7 @@ export default {
         if (response['usersID'] > 0){
           this.$router.push({name: 'Feed'});
         } else {
-          alert('An error has occurred');
+          this.$store.dispatch('alerts', {type: "warning", msg: "An unknown error has occurred, please try again later."})
         }
       }
     },

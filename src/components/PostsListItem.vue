@@ -110,11 +110,21 @@ export default {
       let response = await this.$store.dispatch("data/deletePost", {
         postsID: this.post.postsID,
       });
-      console.log(response);
-      if (response["error"] != "none") {
-        alert("An error has occurred");
-      } else if (response["error"] == "none") {
+      if (response["error"] != 'none') {
+        console.log(response["error"]);
+      }
+      if(response["error"] == 'none') {
         this.$emit("deletedPost");
+      } else if ((response["error"] == "noPostData")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "There was an error sending the request."})
+      } else if ((response["error"] == "stmtFailed")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})
+      } else if ((response["error"] == "userNotFound")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "There was an issue detecting the user."})
+      } else if ((response["error"] == "noPostData")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "There was an error sending the request."})
+      } else {
+        this.$store.dispatch('alerts', {type: "error", msg: "An unknown error has occurred, please try again."})
       }
     },
     async getImages() {
@@ -122,13 +132,19 @@ export default {
         url: "fetchPostImages",
         data: { postsID: this.id },
       });
-      if (response["error"] != "none") {
-        console.log({ response });
-        //console.log('Error loading images');
-      } else {
-        //console.log({response});
+      if (response["error"] != 'none') {
+        console.log(response["error"]);
+      }
+      if(response["error"] == 'none') {
+        this.$emit("deletedPost");
         delete response["error"];
         this.images = response["images"];
+      } else if ((response["error"] == "stmtFailed")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "Something has gone wrong on our end!"})
+      } else if ((response["error"] == "postNotFound")) {
+        this.$store.dispatch('alerts', {type: "error", msg: "There was an issue finding the images."})
+      } else {
+        this.$store.dispatch('alerts', {type: "error", msg: "An unknown error has occurred, please try again."})
       }
     },
   },

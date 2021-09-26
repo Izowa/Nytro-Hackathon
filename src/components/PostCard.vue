@@ -126,10 +126,9 @@ export default {
         data: { postsID: this.id },
       });
       if (response["error"] != "none") {
+        this.$store.dispatch('alerts', {type: "error", msg: "There was an error loading images."})
         console.log({ response });
-        //console.log('Error loading images');
       } else {
-        //console.log({response});
         delete response["error"];
         this.imagePath = response["images"];
         console.log(response["images"].length);

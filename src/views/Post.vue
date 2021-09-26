@@ -117,13 +117,13 @@ export default {
         });
         if (response["error"] != "none") {
           console.log({ response });
-          console.log("Error loading data");
+          this.$store.dispatch('alerts', {type: "error", msg: "There was an issue creating the comment, please try again."})
         } else {
           console.log({ response });
           this.getComments();
         }
       } else {
-        alert("Please sign in");
+        this.$store.dispatch('alerts', {type: "error", msg: "Please sign in to access this feature."})
       }
     },
     async getPost() {
@@ -132,6 +132,7 @@ export default {
         data: { postsID: this.$route.params.id },
       });
       if (response["error"] != "none") {
+        this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
         console.log({ response });
       } else {
         //console.log({ response });
@@ -174,8 +175,8 @@ export default {
         data: { postsID: this.$route.params.id },
       });
       if (response["error"] != "none") {
-        console.log({ response });
-        console.log("Error loading tags");
+        //console.log({ response });
+        //console.log("Error loading tags");
       } else {
         console.log({ response });
         delete response["error"];

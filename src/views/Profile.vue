@@ -6,20 +6,20 @@
           <v-row>
             <v-col>
               <div class="d-inline-flex">
-                <v-avatar size="100" class="mb-4">
+                <v-avatar size="130" class="mb-4">
                   <img :src="baseStorageURL + 'pfps/' + user.usersPfp" />
                 </v-avatar>
-                <h2 class="ml-3 mt-8">@{{ user.usersUid }}</h2>
+                <h1 class="ml-3 mt-12 username">@{{ user.usersUid }}</h1>
               </div>
-              <h3>Bio</h3>
+              <h2>Bio</h2>
               <p>
                 {{ user.usersDesc }}
               </p>
-              <h4>Top Posts (Coming Soon)</h4>
+              <h2 class="mb-2">Top Posts (Coming Soon)</h2>
               <div class="d-inline-flex">
-                <v-img class="mr-2" width="150px" height="150px" />
-                <v-img class="mr-2" width="150px" height="150px" />
-                <v-img width="150px" height="150px" />
+                <img class="mr-2" width="150px" height="150px" />
+                <img class="mr-2" width="150px" height="150px" />
+                <img width="150px" height="150px" />
               </div>
             </v-col>
             <v-col>
@@ -88,11 +88,20 @@ export default {
         },
       });
       //console.log(response);
-      this.user = response["user"];
+      if (response["error"] == 'none') {
+        this.user = response["user"];
+      } else {
+        this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
+      }
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.username {
+  font-size: 2.2em;
+  font-weight: 900;
+  color: white;
+}
 </style>

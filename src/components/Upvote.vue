@@ -59,7 +59,7 @@ export default {
   methods: {
     async listen() {
       if (this.loggedIn == false) {
-        alert('Please login to give Nyas!');
+        this.$store.dispatch('alerts', {type: "error", msg: "Please login to give Nyas!"})
         this.$router.push({name: 'Feed'})
         return 0;
       }
@@ -158,7 +158,7 @@ export default {
       let dataFin = this.data + this.postsID;
       let response = await this.$store.dispatch('auth/txSubmit', {usersID: this.usersID, txString: tx2, Data: dataFin});
       if (response['error'] == 'none') {
-        alert('Upvote successful');
+        this.$store.dispatch('alerts', {type: "success", msg: "Upvote Successful"})
       }
     },
     ascii_to_hexa(str) {

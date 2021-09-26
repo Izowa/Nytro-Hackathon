@@ -126,10 +126,10 @@ export default {
       let response = await this.$store.dispatch("auth/editUserProfile", this.newInfo);
       console.log({ response });
       if (response["error"] == "none") {
-        alert("Changes successfully made");
+        this.$store.dispatch('alerts', {type: "success", msg: "Changes successfully made!"})
       } else if (response["error"] != "none") {
+        this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
         console.log(response["error"]);
-        alert("An error has occurred, please try again");
       }
       this.userChange = false;
     },
@@ -140,9 +140,10 @@ export default {
       });
       console.log({ response });
       if (response["error"] == "none") {
-        alert("Changes successfully made");
+        this.$store.dispatch('alerts', {type: "success", msg: "Changes successfully made!"})
       } else if (response["error"] != "none") {
-        alert("An error has occurred, please try again");
+        this.$store.dispatch('alerts', {type: "error", msg: "An error has occurred, please try again."})
+        console.log(response["error"]);
       }
       this.imagePath = null;
       this.tempUploadedImg = '';

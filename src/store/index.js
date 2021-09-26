@@ -8,7 +8,32 @@ Vue.use(Vuex)
 // ! - The central store file, links modules together and stores central data
 const store = new Vuex.Store({
     state: {
-        baseStorageURL: "https://www.nyaz.io/webStorage/nya/"
+        baseStorageURL: "https://www.nyaz.io/webStorage/nya/",
+        alertMsg: '',
+        alertType: '',
+        alertOn: false,
+    },
+    mutations: {
+        SET_ALERT(state, alert) {
+            state.alertMsg = alert["msg"];
+            state.alertType = alert["type"];
+            state.alertOn = true;
+        },
+        OFF_ALERT(state) {
+            state.alertOn = false;
+        }
+    },
+    actions: {
+        alerts({
+            commit
+        }, alert) {
+            commit('SET_ALERT', alert);
+        },
+        offAlert({
+            commit
+        }) {
+            commit('OFF_ALERT');
+        },
     },
     modules
 })
