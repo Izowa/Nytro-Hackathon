@@ -42,6 +42,6 @@ export default {
 
 <style>
 .topAcountBox{
-   border-radius: 1rem !important;
+   border-radius: 0.5rem !important;
 }
 </style>

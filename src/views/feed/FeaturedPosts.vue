@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row>
       <v-col><Account-Widget v-if="$vuetify.breakpoint.mobile" /></v-col>
       <v-col>
@@ -7,9 +7,9 @@
           <PostCard :post="post" />
         </div>
       </v-col>
-      <v-col><Account-Widget v-if="!$vuetify.breakpoint.mobile" /></v-col>
+      <v-col v-if="!$vuetify.breakpoint.mobile"><Account-Widget /></v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

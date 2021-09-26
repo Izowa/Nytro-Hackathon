@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-card color="accent" class="pa-4" flat>
+      <v-card-title>
+        <h1>Profile Settings</h1>
+      </v-card-title>
       <v-card-text>
         <h1 class="my-3 mb-6">Profile Picture</h1>
         <div class="d-inline-flex">
@@ -42,8 +45,6 @@
           </v-col>
         </v-row>
       </v-card-text>
-    </v-card>
-    <v-card class="mt-3" color="accent" flat>
       <v-card-text>
         <h1 class="my-3 mb-6">User Information</h1>
         <v-row>

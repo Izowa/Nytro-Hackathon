@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <div>
     <v-row>
       <v-col></v-col>
-      <v-col>
-        <v-card width="900px" class="pa-3">
+      <v-col cols="6">
+        <v-card width="100%" class="pa-3 rounded-lg">
           <v-card-title style="word-break: break-word">
             <h2>{{ postD.postsTitle }}</h2>
             <v-spacer v-show="!$vuetify.breakpoint.mobile"/>
@@ -62,11 +62,11 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col class="mx-auto">
+      <v-col>
         <AccountWidget />
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -141,17 +141,17 @@ export default {
       }
     },
     async getImages() {
+      console.log('here');
       let response = await this.$store.dispatch("data/dataPost", {
         url: "fetchPostImages",
         data: { postsID: this.$route.params.id },
       });
+      console.log(response);
       if (response["error"] != "none") {
         //console.log({ response });
         //console.log("Error loading images");
       } else {
-        //console.log({ response });
-        delete response["error"];
-        this.imagePath = response;
+        this.imagePath = response['images'];
       }
     },
     async getComments() {
