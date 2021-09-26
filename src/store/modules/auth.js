@@ -24,6 +24,12 @@ export default {
             state.currentUser = {};
             state.loggedIn = false;
             localStorage.setItem('currentUser', JSON.stringify({}));
+        },
+        CHANGE_PFP(state, path) {
+            state.currentUser["usersPfp"] = path;
+        },
+        UPDATE_USER(state, obj) {
+            state.currentUser["usersDesc"] = obj["newDesc"];
         }
     },
     actions: {
@@ -120,6 +126,39 @@ export default {
             this.$router.push({
                 name: 'Feed'
             });
+        },
+        async changePfp({
+            commit
+        }, formObj) {
+            let formData = new FormData();
+            formData.append("usersID", formObj['usersID'])
+            formData.append(0, formObj['image'])
+            formData.append("tags", formObj["tags"]);
+            let response = await axios.post('https://nyaz.io/nya/pfpUpload.inc.php', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).catch(e => {
+                console.log(e);
+            });
+            commit('CHANGE_PFP', response.data["pfp"]);
+            return response.data;
+        },
+        async editUserProfile({
+            commit, state
+        }, formObj) {
+            let formData = new FormData();
+            formData.append("usersID", state.currentUser["usersID"])
+            formData.append("newDesc", formObj['newDesc'])
+            let response = await axios.post('https://nyaz.io/nya/editUserProfile.inc.php', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).catch(e => {
+                console.log(e);
+            });
+            commit('UPDATE_USER', response.data);
+            return response.data;
         },
     },
 }

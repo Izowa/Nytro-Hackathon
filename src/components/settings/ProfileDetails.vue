@@ -1,102 +1,151 @@
 <template>
-  <v-card color="red" class="pa-4 mt-2">
-    <v-card-title>
-      <v-avatar size="85">
-        <img :src="imagePath" />
-      </v-avatar>
-      <h1 class="ml-4 white--text">Profile</h1>
-    </v-card-title>
-    <v-card-text>
-      <v-avatar v-show="fileSelected" size="85" class="mr-2 mb-2">
-            <img :src="imageURL"/>
-        </v-avatar>
-      <v-file-input
-        show-size
-        truncate-length="50"
-        label="Choose an image!"
-        @change="onSelectedFile"
-      />
-      <v-textarea
-        solo
-        name="input-7-4"
-        label="Bio"
-        :placeholder="$store.state.currentUser.usersDesc"
-      ></v-textarea>
-      <v-btn @click="saveChanges">Save Changes</v-btn>
-      <v-btn @click="getPosts" class="ml-2">Delete a Post</v-btn>
-        
-      <div
-        v-show="showPosts"
-        class="posts"
-        v-for="post in fetchedPosts"
-        :key="post.postsID"
-      >
-        <PostCard :post="post" />
-      </div>
-    </v-card-text>
-  </v-card>
+  <div>
+    <v-card color="accent" class="pa-4" flat>
+      <v-card-text>
+        <h1 class="my-3 mb-6">Profile Picture</h1>
+        <div class="d-inline-flex">
+          <v-avatar size="100" class="mb-4">
+            <img :src="baseStorageURL + 'pfps/' + currentUser.usersPfp" />
+          </v-avatar>
+          <v-avatar v-show="tempUploadedImg != ''" size="100" class="mb-4 mx-6">
+            <img :src="tempUploadedImg" />
+          </v-avatar>
+        </div>
+        <br />
+        <v-btn
+          v-show="!pfpChange"
+          color="primary"
+          class="white--text mt-3"
+          @click="pfpChange = !pfpChange"
+          >Change Profile Picture</v-btn
+        >
+        <v-row v-show="pfpChange">
+          <v-col cols="2">
+            <v-btn block color="secondary" class="white--text mt-3" @click="changePfp"
+              >Save Changes</v-btn
+            >
+          </v-col>
+          <v-col cols="1">
+            <v-btn
+              color="primary"
+              class="white--text mt-3"
+              @click="pfpChange = !pfpChange"
+              >Cancel</v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-file-input
+              show-size
+              label="Update Profile Picture here!"
+              @change="onSelectedFile"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+    <v-card class="mt-3" color="accent" flat>
+      <v-card-text>
+        <h1 class="my-3 mb-6">User Information</h1>
+        <v-row>
+          <v-col>
+            <v-text-field solo disabled value="Profile Description:" />
+          </v-col>
+          <v-col>
+            <v-text-field
+              solo
+              v-model="newInfo.newDesc"
+              :disabled="!userChange"
+            />
+          </v-col>
+        </v-row>
+        <v-btn
+          v-show="!userChange"
+          color="secondary"
+          width="150px"
+          @click="userChange = !userChange"
+          >Edit</v-btn
+        >
+        <v-row v-show="userChange">
+          <v-col cols="2">
+            <v-btn color="secondary" class="white--text" @click="editUserCall()"
+              >Save Changes</v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-btn
+              color="primary"
+              class="white--text ml-5"
+              @click="userChange = !userChange"
+              >Cancel</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script>
-import axios from "axios";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      showPosts: false,
-      fetchedPosts: [],
-      newDesc: "",
+      newInfo: {
+        newDesc: null,
+      },
       image: null,
-      imageURL: "",
-      fileSelected: false
+      userChange: false,
+      pfpChange: false,
+      tempUploadedImg: '',
     };
   },
-  methods: {
-    async getPosts() {
-      this.showPosts = true;
-      let formData = new FormData();
-      formData.append("usersID", this.$store.state.currentUser.usersID);
-      let response = await axios.post(
-        "https://nyaz.io/nya/fetchUserPosts.inc.php",
-        formData
-      ); // No URL
-      if (response.data["error"] != "none") {
-        console.log("Something went wrong");
-      } else {
-        let posts = response.data;
-        delete posts["error"];
-        this.fetchedPosts = posts;
-      }
-    },
-    async saveChanges() {
-      let formData = new FormData();
-      formData.append();
-      formData.append("usersDesc", this.$store.state.currentUser.usersDesc);
-      let response = this.$store.dispatch('changeUser', formData)
-      if (response.data["error"] != "none") {
-        console.log("Something went wrong");
-      } else {
-        this.$router.push({name: 'Account'})
-      }
-    },
-    async onSelectedFile(event) {
-      this.fileSelected = true;
-      this.tempUploadedImg = null;
-      //console.log(event);
-      //console.log(event[0]);
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
-        this.imageURL = fileReader.result;
-      });
-      fileReader.readAsDataURL(event);
-      this.image = event;
-    },
-  },
   computed: {
+    ...mapState("auth", ["currentUser"]),
+    ...mapState(["baseStorageURL"]),
     imagePath() {
       return (
-        "http://180.150.45.233/webStorage/nya/pfps/" +
-        this.$store.state.currentUser.usersPfp
+        "http://180.150.45.233/webStorage/nya/pfps/" + this.currentUser.usersPfp
       );
+    },
+  },
+  mounted() {
+    this.newInfo.newDesc = this.currentUser.usersDesc
+  },
+  methods: {
+    onSelectedFile(event) {
+      this.tempUploadedImg = "";
+      this.image = event;
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.tempUploadedImg = fileReader.result;
+      });
+      fileReader.readAsDataURL(event);
+      console.log(this.image);
+    },
+    async editUserCall() {
+      let response = await this.$store.dispatch("auth/editUserProfile", this.newInfo);
+      console.log({ response });
+      if (response["error"] == "none") {
+        alert("Changes successfully made");
+      } else if (response["error"] != "none") {
+        console.log(response["error"]);
+        alert("An error has occurred, please try again");
+      }
+      this.userChange = false;
+    },
+    async changePfp() {
+      let response = await this.$store.dispatch("auth/changePfp", {
+        usersID: this.currentUser.usersID,
+        image: this.image,
+      });
+      console.log({ response });
+      if (response["error"] == "none") {
+        alert("Changes successfully made");
+      } else if (response["error"] != "none") {
+        alert("An error has occurred, please try again");
+      }
+      this.imagePath = null;
+      this.tempUploadedImg = '';
     },
   },
 };

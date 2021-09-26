@@ -80,7 +80,7 @@ export default {
   mounted() {
     this.links = [
         { text: "My Account", route: { name: "Account" } },
-        { text: "My Posts", route: { name: "PartsList" } },
+        { text: "My Posts", route: { name: "MyPosts" } },
         {
           text: "Profile",
           route: {

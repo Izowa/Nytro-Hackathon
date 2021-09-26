@@ -2,7 +2,7 @@
   <v-row>
     <v-col></v-col>
     <v-col>
-      <v-card v-show="!isDone" width="600px" color="primary" class="mx-auto pa-3">
+      <v-card v-show="!isDone" width="800px" color="primary" class="mx-auto pa-3">
         <v-card-title>
           <h2 class="white--text">Buy Nyzo</h2>
         </v-card-title>
