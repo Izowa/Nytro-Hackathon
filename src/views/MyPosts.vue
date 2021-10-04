@@ -5,8 +5,8 @@
       <v-col cols="9">
         <h1 class="mt-2">Your Posts list</h1>
         <div v-show="!hasPosts">
-          <h2>You currently have no Posts created, you can create one here...</h2>
-          <v-btn color="primary" class="white--text" :to="{name: 'NewPost'}">Create New Post</v-btn>
+          <h2>You currently have no posts created, you can create one here...</h2>
+          <v-btn color="primary" class="white--text" :to="{name: 'CreateNewPost'}">Create New Post</v-btn>
         </div>
         <PostsListItem v-for="post in posts" :key="post.postsID" :post="post" @deletedPost="deletedPost()"/>
       </v-col>
@@ -19,6 +19,11 @@
 import PostsListItem from "@/components/PostsListItem.vue";
 import { mapState } from 'vuex';
 export default {
+  metaInfo: {
+      title: 'My Posts',
+      'http-equiv': "Content-Security-Policy",
+      content: "upgrade-insecure-requests"
+  },
   emits: ["deletedPost"],
   components: { PostsListItem },
   data() {

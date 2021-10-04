@@ -15,7 +15,7 @@ $limit = $_POST['limit'];
 $searchTerm = $_POST['searchTerm'];
 
 // ? ----- SQL & STMT -----
-$sql = "SELECT posts.*, users.usersUid, users.usersPublicKey FROM posts LEFT JOIN users ON posts.usersID=users.usersID WHERE postsTitle LIKE '%?%' OR postsDesc LIKE '%?%' ORDER BY postsID DESC LIMIT ?, ?;";
+$sql = "SELECT posts.*, users.usersUid, users.usersPublicKey FROM posts LEFT JOIN users ON posts.usersID=users.usersID WHERE postsTitle LIKE CONCAT('%',?,'%') OR postsDesc LIKE CONCAT('%',?,'%') ORDER BY postsID DESC LIMIT ?, ?;";
 
 $stmt = mysqli_stmt_init($conn);
 // ! Invalid 2 - An SQL error has occurred

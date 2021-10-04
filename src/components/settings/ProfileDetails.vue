@@ -103,6 +103,7 @@ export default {
   computed: {
     ...mapState("auth", ["currentUser"]),
     ...mapState(["baseStorageURL"]),
+    // ! Check this
     imagePath() {
       return (
         "http://180.150.45.233/webStorage/nya/pfps/" + this.currentUser.usersPfp

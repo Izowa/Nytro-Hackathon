@@ -1,5 +1,12 @@
 <template>
-  <div>
+  <v-skeleton-loader
+      :loading="loading"
+      class="mb-2"
+      transition="scale-transition"
+      height="300"
+      type="list-item-three-line"
+      boilerplate
+    >
     <div
       v-if="!$vuetify.breakpoint.mobile"
       class="grey darken-3 rounded-lg mx-1 my-4 pa-5 white--text"
@@ -92,7 +99,7 @@
         </v-sheet>
       </v-bottom-sheet>
     </div>
-  </div>
+  </v-skeleton-loader>
 </template>
 
 <script>
@@ -102,6 +109,7 @@ export default {
     return {
       sheet: false,
       images: [],
+      loading: true
     };
   },
   methods: {
@@ -149,8 +157,9 @@ export default {
     },
   },
   mounted() {
-    if (this.post != {}) {
+    if (this.post != undefined || this.post != null) {
       this.getImages();
+      this.loading = false;
     }
   },
 };
